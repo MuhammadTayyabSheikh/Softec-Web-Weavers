@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '../../components/adminPanelComponents/Table';
 import TableDataImage from '../../components/adminPanelComponents/Table/TableDataImage';
+import { getGames } from '../../api/ItemsAPI';
 
 function VideoGamesInventory(props) {
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    getGames().then((res) => {
+      setGames(res.items);
+    });
+  }, []);
+
   return (
     <div className='d-flex flex-column w-100'>
       <div className='d-flex justify-content-between align-items-center m-3'>
@@ -23,36 +32,18 @@ function VideoGamesInventory(props) {
           </tr>
         </thead>
         <tbody className=''>
-          <tr>
-            <TableDataImage />
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <TableDataImage />
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <TableDataImage />
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-          </tr>
+          {games.map((game,key) => (
+            <tr key={key}>
+              <TableDataImage />
+              <td>{game.title}</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>
