@@ -21,10 +21,9 @@ const getGear = () => {
     );
 };
 
-const createItem = async (type, title, description, marketPrice, costPrice, stock, minAge, category, image) => {
+const createItem = async ({type, title, description, marketPrice, costPrice, stock, minAge, category, image}) => {
   try {
     const formData = new FormData();
-    formData.append('type', type);
     formData.append('title', title);
     formData.append('description', description);
     formData.append('marketPrice', marketPrice);
@@ -33,11 +32,19 @@ const createItem = async (type, title, description, marketPrice, costPrice, stoc
     formData.append('minAge', minAge);
     formData.append('category', category);
     formData.append('image', image);
+
+    const res = await axios.post('/items/' + type, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    console.log('items/createItem res: ', res);
+    return res.data;
   } catch (error) {
     console.log('items/createItem error: ', error);
     return error;
-  } 
+  }
 };
 
-
-export { getGames, getGear };
+export { getGames, getGear, createItem };

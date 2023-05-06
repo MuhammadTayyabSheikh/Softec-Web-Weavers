@@ -22,36 +22,23 @@ const getItems = async (req, res) => {
       return res.status(404).json({ message: 'Invalid type' });
     }
 
-    let q = Item.find({
+    const items = await Item.find({
       type,
-      // name: search ? { $regex: search, $options: 'i' } : { $exists: true },
-      // category: category || { $exists: true },
-      // price: {
-      //   $gte: minPrice || 0,
-      //   $lte: maxPrice || 1000000,
-      // },
-    });
-
-    if (sortBy) {
-      q = q.sort([sortBy || 'createdAt', sortDirection || 'asc']);
-    }
-
-    if (page) {
-      q = q.skip((parseInt(page) - 1) * parseInt(pageSize || 10));
-    }
-
-    if (pageSize) {
-      q = q.limit(parseInt(pageSize) || 10);
-    }
-
-    console.log('items: ', q);
-    const items = await q.populate('category').exec();
-    // const items = await Item.find();
+      title: search ? { $regex: search, $options: 'i' } : { $exists: true },
+      category: category || { $exists: true },
+      price: {
+        $gte: minPrice || 0,
+        $lte: maxPrice || 1000000,
+      },
+    })
+      .sort([sortBy || 'createdAt', sortDirection || 'asc'])
+      .skip((parseInt(page) - 1) * parseInt(pageSize || 10))
+      .limit(parseInt(pageSize) || 10);
 
     // foreach item get Reviews
     const itemsWithReviews = await Promise.all(
       items.map(async (item) => {
-        const reviews = await Review.find({ item: item._id }).exec();
+        const reviews = await Review.find({ item: item._id });
         item.reviews = reviews;
         return item;
       }),

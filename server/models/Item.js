@@ -29,9 +29,8 @@ const itemSchema = new mongoose.Schema(
       enum: Object.values(InventoryType),
     },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
-      // required: true,
+      type: String,
+      required: true,
     },
     stock: {
       type: Number,
