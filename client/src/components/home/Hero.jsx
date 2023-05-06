@@ -3,8 +3,8 @@ import { hero } from "../../assets";
 
 function Hero(props) {
   return (
-    <div className="row pt-5" style={{ minHeight: "100vh" }}>
-      <div className="col-12 col-md-6 col-lg-8 text-white my-auto">
+    <div className="row pt-10" style={{ minHeight: "100vh" }}>
+      <div className="col-12 col-md-6 col-lg-8 text-white">
         <h1 className="font-clash text-67 d-none d-md-block">
           Discover Gaming Gears & Collect{" "}
           <span className="text-gradient"> Video Games</span>

@@ -37,7 +37,7 @@
   color: #858584;
 }
 .secondary {
-  color: #a259ff;
+  color: #b58900;
 }
 .linksColor {
   color: #cccccc;
@@ -76,12 +76,12 @@
 
 @font-face {
   font-family: "Clash Display";
-  src: url(../src/Asset/Fonts/FontsFree-Net-ClashDisplay-Variable.ttf);
+  src: url(../src/assets/Fonts/FontsFree-Net-ClashDisplay-Variable.ttf);
 }
 
 @font-face {
   font-family: "Poppins";
-  src: url(../src/Asset/Fonts/Poppins-Black.otf);
+  src: url(../src/assets/Fonts/Poppins-Black.otf);
 }
 
 .font-poppins {

@@ -3,7 +3,9 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const routes = require('./routes');
 const connectDB = require('./utils/connectDB');
-const decodeToken = require('./middlewares/decodeToken');
+const decodeAccessToken = require('./middlewares/decodeAccessToken');
+const fileUpload = require('express-fileupload');
+
 dotenv.config();
 
 const app = express();
@@ -11,7 +13,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(decodeToken());
+app.use(fileUpload());
+app.use(decodeAccessToken());
+
+app.use((req, res, next) => {
+  console.log(req.method, req.url);
+  next();
+});
 
 app.use('/api', routes);
 

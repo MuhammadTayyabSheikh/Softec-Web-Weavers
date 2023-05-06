@@ -1,17 +1,10 @@
-const authorize = require('../middlewares/authorize');
-
 const router = require('express').Router();
+const authController = require('../controllers/auth.controller');
 
-router.post('/register', (req, res) => {
-  res.send('Register');
-});
+router.post('/register', authController.register);
 
-router.post('/login', (req, res) => {
-  res.send('Login');
-});
+router.post('/login', authController.login);
 
-router.get('/logout', authorize(), (req, res) => {
-  res.send('Logout');
-});
+router.post('/update-password', authController.updatePassword);
 
 module.exports = router;
