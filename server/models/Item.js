@@ -60,17 +60,17 @@ const addServerUrl = (image) => {
   return image;
 };
 
-userSchema.pre('find', function (next) {
+itemSchema.pre('find', function (next) {
   this.image = addServerUrl(this.image);
   return next();
 });
 
-userSchema.pre('findOne', function (next) {
+itemSchema.pre('findOne', function (next) {
   this.image = addServerUrl(this.image);
   return next();
 });
 
-userSchema.pre('findOneAndUpdate', function (next) {
+itemSchema.pre('findOneAndUpdate', function (next) {
   this.image = addServerUrl(this.image);
   return next();
 });
