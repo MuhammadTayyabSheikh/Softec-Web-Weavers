@@ -1,4 +1,4 @@
-import * as fs from 'fs/promises';
+const fs = require('fs').promises;
 
 const removeFiles = async (files) => {
   if (typeof files === 'string') {
