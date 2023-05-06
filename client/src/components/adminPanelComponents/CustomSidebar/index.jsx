@@ -36,8 +36,8 @@ const CustomSidebar = () => {
         <Sidebar backgroundColor='#002b36' breakPoint='lg' rootStyles={{ minHeight: '100%', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '100%' }}>
           <CustomMenu>
             <CustomSubMenu label="Inventory" icon={<BiCategoryAlt />}>
-              <CustomMenuItem label='Video Games' icon={<IoLogoGameControllerB />} route='' />
-              <CustomMenuItem label='Gaming Gear' icon={<GiBigGear />} route='' />
+              <CustomMenuItem label='Video Games' icon={<IoLogoGameControllerB />} route='/admin/games-inventory' />
+              <CustomMenuItem label='Gaming Gear' icon={<GiBigGear />} route='/admin/gear-inventory' />
             </CustomSubMenu>
             <CustomMenuItem label='Orders' icon={<HiShoppingCart />} route='/admin/orders' />
             <CustomMenuItem label='Customers' icon={<FaUsers />} route='/admin/customers' />

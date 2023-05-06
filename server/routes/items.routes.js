@@ -10,6 +10,6 @@ router.post('/:type', authorize('admin'), itemControllers.createItem);
 
 router.put('/:id', authorize('admin'), itemControllers.updateItem);
 
-router.delete('/:id', authorize('admin'), itemControllers.updateItem);
+router.delete('/:id', authorize('admin'), itemControllers.deleteItem);
 
 module.exports = router;
