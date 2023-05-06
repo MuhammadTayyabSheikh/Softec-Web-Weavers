@@ -28,6 +28,11 @@ const itemSchema = new mongoose.Schema(
       required: true,
       enum: Object.values(InventoryType),
     },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Category',
+      required: true,
+    },
     stock: {
       type: Number,
       required: true,

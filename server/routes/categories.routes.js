@@ -1,20 +1,6 @@
 const router = require('express').Router();
-const authorize = require('../middlewares/authorize');
+const categoriesController = require('../controllers/categories.controller');
 
-router.get('/:type', (req, res) => {
-  res.send('Get categories');
-});
-
-router.post('/:type', authorize('admin'), (req, res) => {
-  res.send('Create category');
-});
-
-router.put('/:type/:id', authorize('admin'), (req, res) => {
-  res.send('Update category');
-});
-
-router.delete('/:type/:id', authorize('admin'), (req, res) => {
-  res.send('Delete category');
-});
+router.get('/:type', categoriesController.getCategories);
 
 module.exports = router;

@@ -7,7 +7,16 @@ const uploadFiles = require('../utils/uploadFiles');
 const getItems = async (req, res) => {
   try {
     const { type } = req.params;
-    const { page, pageSize, sortBy, sortDirection, search } = req.query;
+    const {
+      page,
+      pageSize,
+      sortBy,
+      sortDirection,
+      search,
+      category,
+      minPrice,
+      maxPrice,
+    } = req.query;
 
     if (!Object.values(InventoryType).includes(type)) {
       return res.status(404).json({ message: 'Invalid type' });
@@ -17,6 +26,11 @@ const getItems = async (req, res) => {
       type,
       $text: {
         $search: search || '',
+      },
+      category: category || { $exists: true },
+      price: {
+        $gte: minPrice || 0,
+        $lte: maxPrice || 1000000,
       },
     });
 
@@ -32,7 +46,7 @@ const getItems = async (req, res) => {
       q = q.limit(parseInt(pageSize) || 10);
     }
 
-    const items = await q.exec();
+    const items = await q.populate('category').exec();
 
     // foreach item get Reviews
     const itemsWithReviews = await Promise.all(
@@ -74,8 +88,15 @@ const getItem = async (req, res) => {
 const createItem = async (req, res) => {
   try {
     const { type } = req.params;
-    const { title, description, marketPrice, costPrice, stock, minAge } =
-      req.body;
+    const {
+      title,
+      description,
+      marketPrice,
+      costPrice,
+      stock,
+      minAge,
+      category,
+    } = req.body;
 
     if (!Object.values(InventoryType).includes(type)) {
       return res.status(404).json({ message: 'Invalid type' });
@@ -92,6 +113,7 @@ const createItem = async (req, res) => {
       stock,
       minAge,
       image,
+      category,
     });
 
     item.reviews = [];
