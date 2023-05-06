@@ -1,8 +1,32 @@
 import React from 'react';
 import { cardData } from '../../constants';
 import { CartCard } from '../partials';
+import StripeCheckout from 'react-stripe-checkout';
 
 function Cart(props) {
+  const handleToken = async (token) => {
+    try {
+      const response = await fetch('/api/payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token,
+          amount,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Payment failed');
+      }
+
+      onPaymentSuccess();
+    } catch (error) {
+      onPaymentError(error.message);
+    }
+  };
+
   return (
     <div className='row pt-5'>
       <div className='col-12'>
@@ -35,9 +59,18 @@ function Cart(props) {
             <hr className='background-secondary' />
           </div>
           <div className='col-12 mt-3'>
-            <button className='btn btn-lg background-secondary rounded-pill w-100'>
-              Checkout
-            </button>
+            <StripeCheckout
+              name='Game Hub'
+              description={`Payment of PKR 2000`}
+              amount={2000} // Stripe expects amount in cents
+              currency='PKR'
+              stripeKey={
+                'pk_test_51Lcpl3Bf25LGtW9hgC4vbqmIkGB7MVf88laSzw1vmZee97kMYpPa3HU3BnUbs3XcHbR79wjJBlv6sYN8UvOz6rcD00cFqXZ9Xi'
+              }
+              token={handleToken}
+              shippingAddress
+              billingAddress
+            />
           </div>
         </div>
       </div>
