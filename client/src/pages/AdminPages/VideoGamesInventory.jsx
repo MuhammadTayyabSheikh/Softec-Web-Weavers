@@ -1,12 +1,14 @@
-import React from 'react'
+import React from 'react';
 import Table from '../../components/adminPanelComponents/Table';
 import TableDataImage from '../../components/adminPanelComponents/Table/TableDataImage';
 
-const OrdersPage = () => {
-  console.log('OrdersPage');
+function VideoGamesInventory(props) {
   return (
     <div className='d-flex flex-column w-100'>
-      <h1 className='font-clash'>Orders List</h1>
+      <div className='d-flex justify-content-between align-items-center m-3'>
+        <h1 className='font-clash'>Video Games Inventory</h1>
+        <button className='btn btn-lg bg-primary'>Add New</button>
+      </div>
       <Table>
         <thead>
           <tr className=''>
@@ -54,7 +56,7 @@ const OrdersPage = () => {
         </tbody>
       </Table>
     </div>
-  )
+  );
 }
 
-export default OrdersPage
+export default VideoGamesInventory;
