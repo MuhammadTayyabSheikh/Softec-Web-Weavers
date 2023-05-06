@@ -15,15 +15,15 @@ const socketInit = (server) => {
 
     const { token } = socket.handshake.query;
 
-    const { id } = decodeToken(token);
+    const decoded = decodeToken(token);
 
-    if (id) {
-      socket.join(id);
-      console.log('Client joined room: ', id);
+    if (decoded?.id) {
+      socket.join(decoded?.id);
+      console.log('Client joined room: ', decoded?.id);
     }
 
     socket.on('disconnect', () => {
-      console.log('Client disconnected', id);
+      console.log('Client disconnected', decoded?.id);
     });
   });
 

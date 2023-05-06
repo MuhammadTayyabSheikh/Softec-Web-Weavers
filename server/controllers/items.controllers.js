@@ -24,17 +24,14 @@ const getItems = async (req, res) => {
 
     let q = Item.find({
       type,
-      // $text: {
-      //   $search: search || '',
+      // name: search ? { $regex: search, $options: 'i' } : { $exists: true },
+      // category: category || { $exists: true },
+      // price: {
+      //   $gte: minPrice || 0,
+      //   $lte: maxPrice || 1000000,
       // },
-      category: category || { $exists: true },
-      price: {
-        $gte: minPrice || 0,
-        $lte: maxPrice || 1000000,
-      },
     });
 
-    console.log(q)
     if (sortBy) {
       q = q.sort([sortBy || 'createdAt', sortDirection || 'asc']);
     }
@@ -47,7 +44,10 @@ const getItems = async (req, res) => {
       q = q.limit(parseInt(pageSize) || 10);
     }
 
+    console.log('items: ', q);
     const items = await q.populate('category').exec();
+    // const items = await Item.find();
+
     // foreach item get Reviews
     const itemsWithReviews = await Promise.all(
       items.map(async (item) => {

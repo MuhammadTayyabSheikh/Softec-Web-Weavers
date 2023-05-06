@@ -7,6 +7,19 @@ import { logo } from '../../assets';
 function AdminNavBar(props) {
   const [image, setImage] = useState('');
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [type, setType] = useState('');
+  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState('');
+  // market price
+  // cost price
+  // stock use states
+  // age limit
+  const [marketPrice, setMarketPrice] = useState(0);
+  const [costPrice, setCostPrice] = useState(0);
+  const [stock, setStock] = useState(0);
+  const [minAge, setMinAge] = useState(12);
+
+
 
   return (
     <>
@@ -100,14 +113,14 @@ function AdminNavBar(props) {
                 </div>
                 <div className='form-group'>
                   <label htmlFor='type'>Type</label>
-                  <select className='form-control' id='type'>
+                  <select className='form-control' value={type} id='type' onChange={(e) => setType(e.target.value)}>
                     <option value={'VideoGame'}>Video Game</option>
                     <option value={'GamingGear'}>Gaming Gear</option>
                   </select>
                 </div>
                 <div className='form-group'>
                   <label htmlFor='title'>Title</label>
-                  <input type='text' className='form-control' id='title' />
+                  <input type='text' className='form-control' id='title' onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className='form-group'>
                   <label htmlFor='description'>Description</label>
@@ -115,6 +128,8 @@ function AdminNavBar(props) {
                     rows={'3'}
                     className='form-control'
                     id='description'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
                 <div className='row'>
@@ -125,6 +140,9 @@ function AdminNavBar(props) {
                         type='number'
                         className='form-control'
                         id='marketPrice'
+                        min={0}
+                        value={marketPrice}
+                        onChange={(e) => setMarketPrice(e.target.value)}
                       />
                     </div>
                   </div>
@@ -135,6 +153,9 @@ function AdminNavBar(props) {
                         type='number'
                         className='form-control'
                         id='costPrice'
+                        min={0}
+                        value={costPrice}
+                        onChange={(e) => setCostPrice(e.target.value)}
                       />
                     </div>
                   </div>
@@ -147,6 +168,9 @@ function AdminNavBar(props) {
                         type='number'
                         className='form-control'
                         id='stock'
+                        min={0}
+                        value={stock}
+                        onChange={(e) => setStock(e.target.value)}
                       />
                     </div>
                   </div>
@@ -157,6 +181,9 @@ function AdminNavBar(props) {
                         type='number'
                         className='form-control'
                         id='minAge'
+                        min={0}
+                        value={minAge}
+                        onChange={(e) => setMinAge(e.target.value)}
                       />
                     </div>
                   </div>
