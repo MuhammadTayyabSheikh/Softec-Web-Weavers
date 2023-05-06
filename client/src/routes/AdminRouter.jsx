@@ -1,6 +1,5 @@
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import { Route, Routes } from 'react-router-dom';
-import InventoryPage from '../pages/AdminPages/InventoryPage';
 import CustomersPage from '../pages/AdminPages/CustomersPage';
 import ComplaintsPage from '../pages/AdminPages/ComplaintsPage';
 import CustomSidebar from '../components/adminPanelComponents/CustomSidebar';

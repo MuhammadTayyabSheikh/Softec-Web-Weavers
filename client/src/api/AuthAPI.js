@@ -45,4 +45,4 @@ const logout = () => {
   socket.disconnect();
 };
 
-export { register, login, logout, socket };
+export { register, login, logout, socket, isLoggedIn };
