@@ -20,11 +20,6 @@ import {
 
 export const navLinks = [
   {
-    id: "marketplace",
-    title: "Marketplace",
-    link: "/explore",
-  },
-  {
     id: "collection",
     title: "Collection",
   },

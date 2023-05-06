@@ -4,5 +4,6 @@ import SignUp from './SignUp';
 import FavoritesPage from './FavoritesPage';
 import ProductPage from './ProductPage';
 import CartPage from './CartPage';
+import Marketplace from './Marketplace';
 
-export { Home, Login, SignUp, FavoritesPage, ProductPage, CartPage };
+export { Home, Login, SignUp, FavoritesPage, ProductPage, CartPage, Marketplace };

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logo, user } from '../../assets';
 // import { Base_URL } from "../../url";
 import { navLinks } from '../../constants';
-import { CartFill, Heart, HeartFill } from 'react-bootstrap-icons';
+import { CartFill, ChevronDown, Heart, HeartFill } from 'react-bootstrap-icons';
 // import { navLinks } from "../../Constants";
 
 function Navbar(props) {
@@ -75,6 +75,31 @@ function Navbar(props) {
 
         <div className='collapse navbar-collapse' id='navbarNav'>
           <ul className='navbar-nav mx-auto'>
+            <div className='dropdown'>
+              <li
+                className='background-dark dropdown-toggle text-white mx-4 pulse nav-link'
+                type='button'
+                id='dropdownMenuButton'
+                data-toggle='dropdown'
+                aria-haspopup='true'
+                aria-expanded='false'
+              >
+                Browse
+                <ChevronDown className='ml-2'/>
+              </li>
+              <div
+                className='dropdown-menu'
+                aria-labelledby='dropdownMenuButton'
+                style={{ backgroundColor: '#00222b' }}
+              >
+                <Link className='dropdown-item nav-link text-white' to='#'>
+                  Gaming Gears
+                </Link>
+                <Link className='dropdown-item nav-link text-white' to='#'>
+                  Video Games
+                </Link>
+              </div>
+            </div>
             {navLinks.map((link, id) => (
               <li className='nav-item' key={id}>
                 <Link
