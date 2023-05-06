@@ -8,8 +8,8 @@ const seed = async () => {
     await connectDB();
 
     // await seedAdmin();
-    // await seedItem();
-    await seedCategory();
+    await seedItem();
+    // await seedCategory();
   } catch (error) {
     console.log(error.message);
   } finally {

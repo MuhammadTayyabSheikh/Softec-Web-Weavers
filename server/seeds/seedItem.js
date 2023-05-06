@@ -16,6 +16,7 @@ const seedItem = async () => {
           stock: 50,
           minAge: 0,
           isDeleted: false,
+          category: 'action'
         },
         {
           title: "Super Mario Odyssey",
@@ -27,6 +28,7 @@ const seedItem = async () => {
           stock: 30,
           minAge: 0,
           isDeleted: false,
+          category: 'action'
         },
         {
           title: "Red Dead Redemption 2",
@@ -38,6 +40,7 @@ const seedItem = async () => {
           stock: 20,
           minAge: 18,
           isDeleted: false,
+          category: 'adventure'
         },
         {
           title: "The Last of Us Part II",
@@ -49,6 +52,7 @@ const seedItem = async () => {
           stock: 10,
           minAge: 18,
           isDeleted: false,
+          category: 'adventure'
         },
 
         {
@@ -61,6 +65,7 @@ const seedItem = async () => {
           stock: 50,
           minAge: 0,
           isDeleted: false,
+          category: 'strategy'
         }, 
         {
           title: "Razer DeathAdder V2 Gaming Mouse",
@@ -72,6 +77,7 @@ const seedItem = async () => {
           stock: 30,
           minAge: 0,
           isDeleted: false,
+          category: 'strategy'
         }, {
           title: "HyperX Cloud II Gaming Headset",
           description: "Comfortable and durable gaming headset with 7.1 surround sound",
@@ -82,6 +88,7 @@ const seedItem = async () => {
           stock: 20,
           minAge: 0,
           isDeleted: false,
+          category: 'Gamming mouse'
         },
         {
           title: "Logitech G502 HERO High Performance Gaming Mouse",
@@ -93,6 +100,7 @@ const seedItem = async () => {
           stock: 25,
           minAge: 0,
           isDeleted: false,
+          category: 'Gamming mouse'
         }, {
           title: "SteelSeries Apex Pro TKL Mechanical Gaming Keyboard",
           description: "High-performance gaming keyboard with customizable OLED display and adjustable actuation",
@@ -103,6 +111,7 @@ const seedItem = async () => {
           stock: 10,
           minAge: 0,
           isDeleted: false,
+          category: 'gaming headset'
         }, {
           title: "ASUS ROG Strix Scope RGB Mechanical Gaming Keyboard",
           description: "Compact and durable gaming keyboard with Cherry MX RGB switches and customizable lighting",
@@ -113,6 +122,7 @@ const seedItem = async () => {
           stock: 15,
           minAge: 0,
           isDeleted: false,
+          category: 'gaming headset'
         }, {
           title: "Super Mario Odyssey",
           description: "A 3D platform game developed and published by Nintendo for the Nintendo Switch.",
@@ -123,6 +133,7 @@ const seedItem = async () => {
           stock: 30,
           minAge: 0,
           isDeleted: false,
+          category: 'sports'
         }, {
           title: "The Last of Us Part II",
           description: "An action-adventure game developed by Naughty Dog and published by Sony Interactive Entertainment for the PlayStation 4.",
@@ -133,6 +144,7 @@ const seedItem = async () => {
           stock: 10,
           minAge: 18,
           isDeleted: false,
+          category: 'sports'
         }, {
           title: "The Legend of Zelda: Breath of the Wild",
           description: "An action-adventure game developed and published by Nintendo for the Nintendo Switch and Wii U consoles.",
@@ -143,6 +155,7 @@ const seedItem = async () => {
           stock: 50,
           minAge: 0,
           isDeleted: false,
+          category: 'multiplayer'
         }, {
           title: "Red Dead Redemption 2",
           description: "A Western action-adventure game developed and published by Rockstar Games for the PlayStation 4, Xbox One, and PC.",
@@ -153,6 +166,7 @@ const seedItem = async () => {
           stock: 20,
           minAge: 18,
           isDeleted: false,
+          category: 'multiplayer'
         }]
     );
 
