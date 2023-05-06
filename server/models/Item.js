@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const InventoryType = require('../constants/InventoryType');
 
 const itemSchema = new mongoose.Schema(
   {
@@ -22,19 +23,19 @@ const itemSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    inventoryType: {
+    type: {
       type: String,
       required: true,
-      enum: ['gamingGear', 'videoGame'],
+      enum: Object.values(InventoryType),
     },
-    quantity: {
+    stock: {
       type: Number,
       required: true,
     },
     minAge: {
       type: Number,
       required: true,
-      default: null,
+      default: 0,
     },
   },
   {

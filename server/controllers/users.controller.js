@@ -29,7 +29,8 @@ const getMe = async (req, res) => {
 const updateMe = async (req, res) => {
   try {
     const { id } = req.user;
-    const { name, dob, gender, profilePicture } = req.body;
+    const { name, dob, gender } = req.body;
+    const { profilePicture } = req?.files;
 
     const user = await User.findById(id);
 

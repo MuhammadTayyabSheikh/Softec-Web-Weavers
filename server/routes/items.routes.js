@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const authorize = require('../middlewares/authorize');
 
-router.get('/', (req, res) => {
+router.get('/:type', (req, res) => {
   res.send('Get items');
 });
 
@@ -9,7 +9,7 @@ router.get('/:id', (req, res) => {
   res.send('Get item');
 });
 
-router.post('/', authorize('admin'), (req, res) => {
+router.post('/:type', authorize('admin'), (req, res) => {
   res.send('Create item');
 });
 

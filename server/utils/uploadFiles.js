@@ -1,4 +1,4 @@
-import * as fs from 'fs/promises';
+const fs = require('fs').promises;
 
 const uploadFiles = async (files, directory = 'others') => {
   if (!files || files.length === 0) return null;
