@@ -3,6 +3,7 @@ const Order = require('../models/Order');
 const getOrders = async (req, res) => {
   try {
     const { id, role } = req.user;
+    const { page, perPage, status } = req.query;
 
     let q;
 
@@ -12,11 +13,21 @@ const getOrders = async (req, res) => {
       q = Order.find({ user: id });
     }
 
-    const orders = await q
-      .sort({ createdAt: -1, updatedAt: -1, status: 1 })
-      .populate('user')
-      .populate('items.item')
-      .exec();
+    q = q.sort({ createdAt: -1, updatedAt: -1, status: 1 });
+
+    if (page) {
+      q = q.skip((parseInt(page) - 1) * parseInt(perPage));
+    }
+
+    if (perPage) {
+      q = q.limit(parseInt(perPage));
+    }
+
+    if (status) {
+      q = q.where({ status });
+    }
+
+    const orders = await q.populate('user').populate('items.item').exec();
 
     res.status(200).json(orders);
   } catch (error) {

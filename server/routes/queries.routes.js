@@ -1,24 +1,17 @@
 const router = require('express').Router();
 const authorize = require('../middlewares/authorize');
+const queriesController = require('../controllers/query.controller');
 
-router.get('/', authorize(), (req, res) => {
-  res.send('Get all queries');
-});
+router.get('/', authorize(), queriesController.getQueries);
 
-router.get('/:id', authorize(), (req, res) => {
-  res.send('Get one query');
-});
+router.get('/:id', authorize(), queriesController.getQuery);
 
-router.post('/', authorize('user'), (req, res) => {
-  res.send('Create a query');
-});
+router.post('/', authorize('user'), queriesController.createQuery);
 
-router.put('/:id', authorize(), (req, res) => {
-  res.send('Update a query');
-});
+router.post('/message/:id', authorize(), queriesController.sendMessage);
 
-router.delete('/:id', authorize('admin'), (req, res) => {
-  res.send('Delete a query');
-});
+router.put('/:id', authorize(), queriesController.updateQuery);
+
+router.delete('/:id', authorize('admin'), queriesController.deleteQuery);
 
 module.exports = router;

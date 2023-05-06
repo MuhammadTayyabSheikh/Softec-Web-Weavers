@@ -25,11 +25,11 @@ const getItems = async (req, res) => {
     }
 
     if (page) {
-      q = q.skip(page * (pageSize || 10));
+      q = q.skip((parseInt(page) - 1) * parseInt(pageSize || 10));
     }
 
     if (pageSize) {
-      q = q.limit(pageSize || 10);
+      q = q.limit(parseInt(pageSize) || 10);
     }
 
     const items = await q.exec();
