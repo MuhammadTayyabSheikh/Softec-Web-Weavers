@@ -24,9 +24,7 @@ const getItems = async (req, res) => {
 
     let q = Item.find({
       type,
-      // $text: {
-      //   $search: search || '',
-      // },
+      title: search ? { $regex: search, $options: 'i' } : { $exists: true },
       category: category || { $exists: true },
       price: {
         $gte: minPrice || 0,
@@ -46,12 +44,12 @@ const getItems = async (req, res) => {
       q = q.limit(parseInt(pageSize) || 10);
     }
 
-    console.log('items: ', q);
-    const items = await q.populate('category').exec();
+    const items = await q;
+
     // foreach item get Reviews
     const itemsWithReviews = await Promise.all(
       items.map(async (item) => {
-        const reviews = await Review.find({ item: item._id }).exec();
+        const reviews = await Review.find({ item: item._id });
         item.reviews = reviews;
         return item;
       }),

@@ -29,8 +29,7 @@ const itemSchema = new mongoose.Schema(
       enum: Object.values(InventoryType),
     },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
+      type: String,
       required: true,
     },
     stock: {
@@ -65,7 +64,10 @@ const addServerUrl = (image) => {
 };
 
 itemSchema.pre('find', function (next) {
-  this.image = addServerUrl(this.image);
+  for (let i = 0; i < this.length; i++) {
+    this[i].image = addServerUrl(this[i].image);
+  }
+
   return next();
 });
 
