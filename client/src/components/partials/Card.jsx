@@ -16,19 +16,7 @@ function Card({ product }) {
         className="card background-gray p-3 rounded-border text-white pulse"
         style={{ width: "100%" }}
       >
-        <div className="">
-          <img
-            className=""
-            src={crypto}
-            alt="Card image cap"
-            width={"50px"}
-            style={{
-              position: "absolute",
-              top: "20px",
-              right: "20px",
-            }}
-          />
-        </div>
+        
         <img
           style={{
             height: "250px",
