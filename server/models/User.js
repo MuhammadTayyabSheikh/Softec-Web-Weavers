@@ -84,7 +84,7 @@ userSchema.pre('save', async function (next) {
 });
 
 const addServerUrl = (profilePicture) => {
-  if (!profilePicture.startsWith('http')) {
+  if (!profilePicture?.startsWith('http')) {
     return `${process.env.SERVER_URL}/${profilePicture}`;
   }
 
@@ -92,7 +92,10 @@ const addServerUrl = (profilePicture) => {
 };
 
 userSchema.pre('find', function (next) {
-  this.profilePicture = addServerUrl(this.profilePicture);
+  for (let i = 0; i < this.length; i++) {
+    this[i].profilePicture = addServerUrl(this[i].profilePicture);
+  }
+
   return next();
 });
 
