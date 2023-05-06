@@ -6,7 +6,7 @@ const getMe = async (req, res) => {
   try {
     const { id } = req.user;
 
-    const user = await User.findById(id).select('-password -isAdmin');
+    const user = await User.findById(id).select('-password');
 
     res.status(200).json({
       user: {
@@ -18,6 +18,7 @@ const getMe = async (req, res) => {
         gender: user.gender,
         isBlacklisted: user.isBlacklisted,
         blacklistReason: user.blacklistReason,
+        role: user.isAdmin ? 'admin' : 'user',
       },
     });
   } catch (error) {
@@ -184,7 +185,7 @@ const removeFromCart = async (req, res) => {
 const checkout = async (req, res) => {
   // app.post('/api/payment', async (req, res) => {
   //   const { token, amount } = req.body;
-  
+
   //   try {
   //     const charge = await stripe.charges.create({
   //       amount,
@@ -192,7 +193,7 @@ const checkout = async (req, res) => {
   //       description: 'Game Hub payment',
   //       source: token.id,
   //     });
-  
+
   //     res.status(200).send('Payment succeeded');
   //   } catch (error) {
   //     console.error(error);
