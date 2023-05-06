@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import axios from './axios.config';
+import io from 'socket.io-client';
 
-const register = ({ name, email, password, dob, gender }) => {
+let socket;
+
+const register = async ({ name, email, password, dob, gender }) => {
   return axios
     .post('/auth/register', {
       name,
@@ -12,12 +15,10 @@ const register = ({ name, email, password, dob, gender }) => {
     })
     .then((res) => {
       console.log(res.data);
-    }
-
-    );
+    });
 };
 
-const login = ({ email, password }) => {
+const login = async ({ email, password }) => {
   return axios
     .post('/auth/login', {
       email,
@@ -25,6 +26,13 @@ const login = ({ email, password }) => {
     })
     .then((res) => {
       localStorage.setItem('token', res.data.token);
+
+      socket = io('http://localhost:5000', {
+        query: {
+          token: res.data.token,
+        },
+      });
+
       return res.data;
     });
 };
@@ -34,7 +42,7 @@ const isLoggedIn = () => {
 
 const logout = () => {
   localStorage.removeItem('token');
-  console.log('tokenjfewhcevbk')
+  socket.disconnect();
 };
 
-export { register, login, logout, isLoggedIn };
+export { register, login, logout, socket };

@@ -3,8 +3,17 @@ import { cardData } from "../../constants";
 import { Card } from "../partials";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { getGear } from "../../api/ItemsAPI";
 
 function TopGears(props) {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    getGear().then((res) => {
+      setProducts(res.items || [])
+      console.log(res.items)
+    });
+  }, [])
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -46,7 +55,7 @@ function TopGears(props) {
         itemClass="carousel-item-padding-40-px"
         className="mt-5"
       >
-        {cardData.map((product, key) => (
+        {products.map((product, key) => (
           <div className="col-12 my-3" key={key}>
             <Card product={product} />
           </div>

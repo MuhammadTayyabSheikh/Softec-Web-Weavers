@@ -11,4 +11,14 @@ const getGames = () => {
     );
 };
 
-export { getGames};
+const getGear = () => {
+  return axios
+    .get('/items/GamingGear')
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    }
+    );
+};
+
+export { getGames, getGear };

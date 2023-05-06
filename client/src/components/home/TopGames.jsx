@@ -28,8 +28,8 @@ function TopGames(props) {
 
   useEffect(() => {
     getGames().then((res) => {
-      setProducts(res?.items || [])
-      console.log(res?.items)
+      setProducts(res.items || [])
+      console.log(res.items)
     });
   }, [])
 
@@ -57,7 +57,7 @@ function TopGames(props) {
         itemClass="carousel-item-padding-40-px"
         className="mt-5"
       >
-        {products.map((product, key) => (
+        {products?.map((product, key) => (
           <div className="col-12 my-3" key={key}>
             <Card product={product} />
           </div>

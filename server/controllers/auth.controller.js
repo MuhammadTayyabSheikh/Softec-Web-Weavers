@@ -4,7 +4,7 @@ const { generateToken } = require('../utils/token');
 const register = async (req, res) => {
   try {
     const { name, email, password, dob, gender } = req.body;
-    console.log(req.body)
+    console.log(req.body);
 
     const user = await User.create({
       name,
@@ -20,7 +20,20 @@ const register = async (req, res) => {
       role: user.isAdmin ? 'admin' : 'user',
     });
 
-    res.status(201).json({ token, message: 'Registered successfully!' });
+    res.status(201).json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        profilePicture: user.profilePicture,
+        email: user.email,
+        dob: user.dob,
+        gender: user.gender,
+        isBlacklisted: user.isBlacklisted,
+        blacklistReason: user.blacklistReason,
+      },
+      message: 'Registered successfully!',
+    });
   } catch (error) {
     console.log('auth/register error: ', error);
     res.status(500).json({ message: error.message });
@@ -49,9 +62,20 @@ const login = async (req, res) => {
       role: user.isAdmin ? 'admin' : 'user',
     });
 
-    console.log('auth/login token: ', token);
-
-    res.status(200).json({ token, message: '' });
+    res.status(200).json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        profilePicture: user.profilePicture,
+        email: user.email,
+        dob: user.dob,
+        gender: user.gender,
+        isBlacklisted: user.isBlacklisted,
+        blacklistReason: user.blacklistReason,
+      },
+      message: '',
+    });
   } catch (error) {
     console.log('auth/login error: ', error);
     res.status(500).json({ message: error.message });
