@@ -83,6 +83,29 @@ userSchema.pre('save', async function (next) {
   }
 });
 
+const addServerUrl = (profilePicture) => {
+  if (!profilePicture.startsWith('http')) {
+    return `${process.env.SERVER_URL}/${profilePicture}`;
+  }
+
+  return profilePicture;
+};
+
+userSchema.pre('find', function (next) {
+  this.profilePicture = addServerUrl(this.profilePicture);
+  return next();
+});
+
+userSchema.pre('findOne', function (next) {
+  this.profilePicture = addServerUrl(this.profilePicture);
+  return next();
+});
+
+userSchema.pre('findOneAndUpdate', function (next) {
+  this.profilePicture = addServerUrl(this.profilePicture);
+  return next();
+});
+
 userSchema.methods.isValidPassword = async function (newPassword) {
   return await bcrypt.compare(newPassword, this.password);
 };
