@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const instance = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}/api`,
+  baseURL: `http://localhost:5000/api`,
   headers: {
     'Content-Type': 'application/json',
     'cache-control': 'no-cache',
@@ -32,18 +33,18 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 || error.response?.status === 403) {
       localStorage.removeItem('token');
     }
 
     if (error.response?.data?.length > 0) {
-      error.response?.data.forEach((message) => console.error(message));
+      error.response?.data.forEach((message) => toast.error(message));
     } else if (error.response?.data?.message) {
-      console.error(error.response.data.message);
+      toast.error(error.response.data.message);
     } else if (error.message) {
-      console.error(error.message);
+      toast.error(error.message);
     } else if (error.response?.data?.error) {
-      console.error(error.response.data.error);
+      toast.error(error.response.data.error);
     }
 
     throw error;

@@ -1,24 +1,15 @@
 const router = require('express').Router();
 const authorize = require('../middlewares/authorize');
+const itemControllers = require('../controllers/items.controllers');
 
-router.get('/:type', (req, res) => {
-  res.send('Get items');
-});
+router.get('/:type', itemControllers.getItems);
 
-router.get('/:id', (req, res) => {
-  res.send('Get item');
-});
+router.get('/:id', itemControllers.getItem);
 
-router.post('/:type', authorize('admin'), (req, res) => {
-  res.send('Create item');
-});
+router.post('/:type', authorize('admin'), itemControllers.createItem);
 
-router.put('/:id', authorize('admin'), (req, res) => {
-  res.send('Update item');
-});
+router.put('/:id', authorize('admin'), itemControllers.updateItem);
 
-router.delete('/:id', authorize('admin'), (req, res) => {
-  res.send('Delete item');
-});
+router.delete('/:id', authorize('admin'), itemControllers.updateItem);
 
 module.exports = router;
