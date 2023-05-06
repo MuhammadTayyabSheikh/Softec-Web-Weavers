@@ -1,12 +1,22 @@
 const InventoryType = require('../constants/InventoryType');
 const Item = require('../models/Item');
+const Review = require('../models/Review');
 const removeFiles = require('../utils/removeFiles');
 const uploadFiles = require('../utils/uploadFiles');
 
 const getItems = async (req, res) => {
   try {
     const { type } = req.params;
-    const { page, pageSize, sortBy, sortDirection, search } = req.query;
+    const {
+      page,
+      pageSize,
+      sortBy,
+      sortDirection,
+      search,
+      category,
+      minPrice,
+      maxPrice,
+    } = req.query;
 
     if (!Object.values(InventoryType).includes(type)) {
       return res.status(404).json({ message: 'Invalid type' });
@@ -17,6 +27,11 @@ const getItems = async (req, res) => {
       // $text: {
       //   $search: search || '',
       // },
+      category: category || { $exists: true },
+      price: {
+        $gte: minPrice || 0,
+        $lte: maxPrice || 1000000,
+      },
     });
 
     if (sortBy) {
@@ -24,16 +39,25 @@ const getItems = async (req, res) => {
     }
 
     if (page) {
-      q = q.skip(page * (pageSize || 10));
+      q = q.skip((parseInt(page) - 1) * parseInt(pageSize || 10));
     }
 
     if (pageSize) {
-      q = q.limit(pageSize || 10);
+      q = q.limit(parseInt(pageSize) || 10);
     }
 
-    const items = await q.exec();
+    const items = await q.populate('category').exec();
 
-    res.status(200).json({ items });
+    // foreach item get Reviews
+    const itemsWithReviews = await Promise.all(
+      items.map(async (item) => {
+        const reviews = await Review.find({ item: item._id }).exec();
+        item.reviews = reviews;
+        return item;
+      }),
+    );
+
+    res.status(200).json({ items: itemsWithReviews });
   } catch (error) {
     console.log('items/getItems error: ', error);
     res.status(500).json({ message: error.message });
@@ -50,6 +74,10 @@ const getItem = async (req, res) => {
       return res.status(404).json({ message: 'Item not found' });
     }
 
+    const reviews = await Review.find({ item: item._id }).exec();
+
+    item.reviews = reviews;
+
     res.status(200).json({ item });
   } catch (error) {
     console.log('items/getItem error: ', error);
@@ -60,8 +88,15 @@ const getItem = async (req, res) => {
 const createItem = async (req, res) => {
   try {
     const { type } = req.params;
-    const { title, description, marketPrice, costPrice, stock, minAge } =
-      req.body;
+    const {
+      title,
+      description,
+      marketPrice,
+      costPrice,
+      stock,
+      minAge,
+      category,
+    } = req.body;
 
     if (!Object.values(InventoryType).includes(type)) {
       return res.status(404).json({ message: 'Invalid type' });
@@ -78,7 +113,10 @@ const createItem = async (req, res) => {
       stock,
       minAge,
       image,
+      category,
     });
+
+    item.reviews = [];
 
     res.status(200).json({ item });
   } catch (error) {
