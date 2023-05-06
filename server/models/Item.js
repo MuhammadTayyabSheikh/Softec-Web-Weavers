@@ -52,6 +52,29 @@ const itemSchema = new mongoose.Schema(
   },
 );
 
+const addServerUrl = (image) => {
+  if (!image.startsWith('http')) {
+    return `${process.env.SERVER_URL}/${image}`;
+  }
+
+  return image;
+};
+
+userSchema.pre('find', function (next) {
+  this.image = addServerUrl(this.image);
+  return next();
+});
+
+userSchema.pre('findOne', function (next) {
+  this.image = addServerUrl(this.image);
+  return next();
+});
+
+userSchema.pre('findOneAndUpdate', function (next) {
+  this.image = addServerUrl(this.image);
+  return next();
+});
+
 const Item = mongoose.model('Item', itemSchema);
 
 module.exports = Item;

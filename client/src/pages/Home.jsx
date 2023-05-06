@@ -1,17 +1,21 @@
-import React from "react";
-import { Navbar } from "../components/Partials";
-import { Hero, Support, TopCategories, TopGames, TopGears } from "../components/home";
+import React from 'react';
+import {
+  Hero,
+  Support,
+  TopCategories,
+  TopGames,
+  TopGears,
+} from '../components/home';
 
 function Home(props) {
   return (
-    <div className="background-dark paddingX pb-10">
+    <div className='background-dark paddingX pb-10'>
       {/* <Navbar/> */}
       <Hero />
       <TopGames />
       <TopGears />
-      <TopCategories/>
-      <Support/>
-
+      <TopCategories />
+      <Support />
     </div>
   );
 }

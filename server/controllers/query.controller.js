@@ -1,4 +1,5 @@
 const Query = require('../models/Query');
+const { io } = require('../utils/socketInit');
 
 const getQueries = async (req, res) => {
   try {
@@ -82,12 +83,12 @@ const createQuery = async (req, res) => {
 const sendMessage = async (req, res) => {
   try {
     const { id } = req.params;
-    const { id: userId } = req.user;
+    const { id: userId, isAdmin } = req.user;
     const { message } = req.body;
 
     const query = await Query.findById(id).exec();
 
-    if (!query) {
+    if (!query || query.status === 'pending') {
       return res.status(404).json({ message: 'Query not found' });
     }
 
@@ -97,6 +98,21 @@ const sendMessage = async (req, res) => {
     });
 
     await query.save();
+
+    if (isAdmin) {
+      io.to(query.user).emit('newMessage', {
+        queryId: query._id,
+        message,
+        time: new Date(),
+      });
+    } else {
+      const admin = await User.findOne({ isAdmin: true });
+      io.to(admin._id).emit('newMessage', {
+        queryId: query._id,
+        message,
+        time: new Date(),
+      });
+    }
 
     res.status(200).json({ query });
   } catch (error) {

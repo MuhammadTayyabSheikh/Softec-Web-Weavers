@@ -1,5 +1,6 @@
 import { ProSidebarProvider } from 'react-pro-sidebar';
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
+import InventoryPage from '../pages/AdminPages/InventoryPage';
 import CustomersPage from '../pages/AdminPages/CustomersPage';
 import ComplaintsPage from '../pages/AdminPages/ComplaintsPage';
 import CustomSidebar from '../components/adminPanelComponents/CustomSidebar';
@@ -13,22 +14,21 @@ const AdminRouter = () => {
   return (
     <ProSidebarProvider>
       <div className='d-flex flex-column h-100'>
-
         <AdminNavBar />
-        <div className='d-flex h-100' style={{minHeight: '100vh'}}>
+        <div className='d-flex h-100' style={{ minHeight: '100vh' }}>
           <CustomSidebar />
           <Routes>
-            <Route path="" element={<WelcomePage />} />
-            <Route path="/orders" element={<OrdersPage />} />
-            <Route path="/customers" element={<CustomersPage />} />
-            <Route path="/complaints" element={<ComplaintsPage />} />
-            <Route path="/games-inventory" element={<VideoGamesInventory />} />
-            <Route path="/gear-inventory" element={<GearInventory />} />
+            <Route path='' element={<WelcomePage />} />
+            <Route path='/orders' element={<OrdersPage />} />
+            <Route path='/customers' element={<CustomersPage />} />
+            <Route path='/complaints' element={<ComplaintsPage />} />
+            <Route path='/games-inventory' element={<VideoGamesInventory />} />
+            <Route path='/gear-inventory' element={<GearInventory />} />
           </Routes>
         </div>
       </div>
     </ProSidebarProvider>
-  )
-}
+  );
+};
 
 export default AdminRouter;
