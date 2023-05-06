@@ -12,10 +12,6 @@ const categorySchema = new mongoose.Schema(
       enum: Object.values(InventoryType),
       required: true,
     },
-    image: {
-      type: String,
-      required: true,
-    },
   },
   {
     timestamps: true,
