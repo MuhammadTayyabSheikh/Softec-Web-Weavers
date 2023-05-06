@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import axios from './axios.config';
 
 const register = ({ name, email, password, dob, gender }) => {
@@ -9,7 +10,11 @@ const register = ({ name, email, password, dob, gender }) => {
       dob,
       gender,
     })
-    .then((res) => res.data);
+    .then((res) => {
+      console.log(res.data);
+    }
+
+    );
 };
 
 const login = ({ email, password }) => {
@@ -23,9 +28,13 @@ const login = ({ email, password }) => {
       return res.data;
     });
 };
+const isLoggedIn = () => {
+  return localStorage.getItem('token') ? true : false;
+};
 
 const logout = () => {
   localStorage.removeItem('token');
+  console.log('tokenjfewhcevbk')
 };
 
-export { register, login, logout };
+export { register, login, logout, isLoggedIn };

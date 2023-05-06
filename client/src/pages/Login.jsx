@@ -1,15 +1,33 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login, logo } from "../assets";
+import { login as signIn } from "../api/AuthAPI";
 
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (e) => {
+    // send axio request on submit
+    e.preventDefault();
+    setLoading(true);
+    console.log({
+      email,
+      password,
+    })
+    await signIn({
+      email,
+      password,
+    });
+  }
 
   return (
     <div className="paddingX background-dark pb-10 w-100 mx-auto">
       <section className="" style={{ minHeight: "100vh" }}>
-        <form>
+        <form
+          onSubmit={onSubmit}
+        >
           <div className="container py-5 h-100">
             <div className="row d-flex justify-content-center align-items-center h-100">
               <div className="col col-xl-10">

@@ -6,17 +6,12 @@ import { Heart, HeartFill } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 
 function Card({ product }) {
-
-
- 
-
   return (
     <div>
       <div
         className="card background-gray p-3 rounded-border text-white pulse"
         style={{ width: "100%" }}
       >
-        
         <img
           style={{
             height: "250px",
@@ -42,18 +37,18 @@ function Card({ product }) {
               {/* <img className="rounded img-fluid" src={nft?.profile} alt="Card image cap" /> */}
             </div>
             <div className="col-8 pl-0">
-              <p className="h6 my-0 font-clash">{product.name}</p>
+              <p className="h6 my-0 font-clash">{product.title}</p>
               <p className="my-0"></p>
             </div>
 
             <div className="col-2">
-             
-                <Heart
-                  size={"20px"}
-                  className="pointer"
-                //   onClick={handleAddFavorite}
-                />
-             
+
+              <Heart
+                size={"20px"}
+                className="pointer"
+              //   onClick={handleAddFavorite}
+              />
+
             </div>
           </div>
           <div className="row my-2">

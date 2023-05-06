@@ -14,9 +14,9 @@ const getItems = async (req, res) => {
 
     let q = Item.find({
       type,
-      $text: {
-        $search: search || '',
-      },
+      // $text: {
+      //   $search: search || '',
+      // },
     });
 
     if (sortBy) {
@@ -33,7 +33,7 @@ const getItems = async (req, res) => {
 
     const items = await q.exec();
 
-    if (so) res.status(200).json({ items });
+    res.status(200).json({ items });
   } catch (error) {
     console.log('items/getItems error: ', error);
     res.status(500).json({ message: error.message });

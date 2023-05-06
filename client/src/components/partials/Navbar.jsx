@@ -4,9 +4,16 @@ import { logo, user } from '../../assets';
 // import { Base_URL } from "../../url";
 import { navLinks } from '../../constants';
 import { CartFill, ChevronDown, Heart, HeartFill } from 'react-bootstrap-icons';
+import { isLoggedIn, logout } from '../../api/AuthAPI';
 // import { navLinks } from "../../Constants";
 
 function Navbar(props) {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(isLoggedIn());
+  }, []);
+
   return (
     <div className='sticky-top w-100 mx-auto'>
       <nav className='py-3 navbar navbar-expand-lg navbar-light background-dark paddingX'>
@@ -85,7 +92,7 @@ function Navbar(props) {
                 aria-expanded='false'
               >
                 Browse
-                <ChevronDown className='ml-2'/>
+                <ChevronDown className='ml-2' />
               </li>
               <div
                 className='dropdown-menu'
@@ -157,11 +164,20 @@ function Navbar(props) {
                     Sign Up
                   </button>
                 </Link> */}
-              <Link to={'/login'}>
-                <button className='btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0'>
-                  Login
-                </button>
-              </Link>
+              {loggedIn ? <button className='btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0'
+                onClick={logout}
+              >
+                Logoutfghj
+              </button>
+                :
+                <Link to={'/login'}>
+                  <button className='btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0'
+                  >
+                    Login
+                  </button>
+                </Link>
+              }
+
             </>
             <div className='px-4'>
               <Link to={'/favorites'}>

@@ -5,9 +5,9 @@ const instance = axios.create({
   baseURL: `http://localhost:5000/api`,
   headers: {
     'Content-Type': 'application/json',
-    'cache-control': 'no-cache',
+    // 'cache-control': 'no-cache',
   },
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 instance.interceptors.request.use(

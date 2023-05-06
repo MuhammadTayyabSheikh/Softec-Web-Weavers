@@ -3,6 +3,7 @@ import { cardData } from "../../constants";
 import { Card } from "../partials";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { getGames } from "../../api/ItemsAPI";
 
 function TopGames(props) {
   const responsive = {
@@ -22,6 +23,16 @@ function TopGames(props) {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
+
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    getGames().then((res) => {
+      setProducts(res?.items || [])
+      console.log(res?.items)
+    });
+  }, [])
+
 
   return (
     <div className="text-white mt-10">
@@ -46,7 +57,7 @@ function TopGames(props) {
         itemClass="carousel-item-padding-40-px"
         className="mt-5"
       >
-        {cardData.map((product, key) => (
+        {products.map((product, key) => (
           <div className="col-12 my-3" key={key}>
             <Card product={product} />
           </div>

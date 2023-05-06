@@ -8,28 +8,51 @@ function SignUp(props) {
   const [password, setPassword] = useState('');
   const [dob, setDob] = useState('');
   const [gender, setGender] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (e) => {
+    // send axio request on submit
+    e.preventDefault();
+    setLoading(true);
+    console.log({
+      name,
+      email,
+      password,
+      dob: new Date(dob),
+      gender
+    })
+    await register({
+      name,
+      email,
+      password,
+      dob: new Date(dob),
+      gender,
+    });
+  }
+
+  // {
+  //   async (e) => {
+  //     e.preventDefault();
+  //     await register({
+  //       name,
+  //       email,
+  //       password,
+  //       dob: new Date(dob),
+  //       gender,
+  //     });
+  //   }
+  // }
 
   return (
     <div className='paddingX background-dark pb-10 w-100 mx-auto'>
       <section className='background-dark' style={{ minHeight: '100vh' }}>
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            await register({
-              name,
-              email,
-              password,
-              dob: new Date(dob),
-              gender,
-            });
-          }}
-        >
+        <form onSubmit={onSubmit}>
           <div className='container py-5 h-100'>
             <div className='row d-flex justify-content-center align-items-center h-100'>
               <div className='col col-xl-10'>
                 <div
                   className='card background-gray text-white'
-                  // style={{ borderRadius: "1rem", borderColor: "#0c2c07" }}
+                // style={{ borderRadius: "1rem", borderColor: "#0c2c07" }}
                 >
                   <div className='row g-0'>
                     <div className='col-md-6 col-lg-5 d-none d-md-block'>
@@ -113,13 +136,17 @@ function SignUp(props) {
                         </div>
                         <div className='form-outline mb-4 w-100'>
                           <select
-                            placeholder='Gender'
-                            className='form-control-lg background-gray rounded-border paraColor formInput'
-                            aria-label='Default select example'
+                            placeholder="Gender"
+                            className="form-control-lg background-gray rounded-border paraColor formInput"
+                            aria-label="Default select example"
+                            value={gender} // added value attribute to set the selected value
+                            onChange={(e) => {
+                              setGender(e.target.value);
+                            }}
                           >
-                            <option selected>Gender</option>
-                            <option value='male'>Male</option>
-                            <option value='female'>Female</option>
+                            <option value="">Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
                           </select>
                         </div>
 

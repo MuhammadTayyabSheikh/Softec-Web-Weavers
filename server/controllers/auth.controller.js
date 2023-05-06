@@ -4,6 +4,7 @@ const { generateToken } = require('../utils/token');
 const register = async (req, res) => {
   try {
     const { name, email, password, dob, gender } = req.body;
+    console.log(req.body)
 
     const user = await User.create({
       name,
@@ -47,6 +48,8 @@ const login = async (req, res) => {
       name: user.name,
       role: user.isAdmin ? 'admin' : 'user',
     });
+
+    console.log('auth/login token: ', token);
 
     res.status(200).json({ token, message: '' });
   } catch (error) {
