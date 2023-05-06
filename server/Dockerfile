@@ -9,7 +9,8 @@ WORKDIR /usr/src/app
 # Install Dependencies
 COPY package*.json ./
 
-RUN npm install --silent
+RUN yarn install --silent
+RUN yarn global add nodemon
 
 # Copy app source code
 COPY . .
@@ -17,4 +18,4 @@ COPY . .
 # Exports
 EXPOSE 5000
 
-CMD ["npm","start"]
+CMD ["yarn","dev"]
