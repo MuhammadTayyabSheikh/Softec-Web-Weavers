@@ -1,7 +1,9 @@
 import React from 'react'
 import { MenuItem } from 'react-pro-sidebar'
+import { useNavigate } from 'react-router'
 
-const CustomMenuItem = ({ label, icon }) => {
+const CustomMenuItem = ({ label, icon, route = null }) => {
+  const navigate = useNavigate();
   return (
     <MenuItem
       icon={icon}
@@ -14,6 +16,7 @@ const CustomMenuItem = ({ label, icon }) => {
           backgroundColor: '#002b36',
         }
       }}
+      onClick={() =>{ route ? navigate(route) : console.log('cnrejkslfjc')}}
     >
       {label}
     </MenuItem>

@@ -30,6 +30,7 @@ import Wand from "./Wand.svg";
 import user from "./user.jpg";
 import register from "./signup.jpg";
 import login from "./login.jpg";
+import logo_small from "./logo-small.png";
 
 export {
   bg,
@@ -63,5 +64,6 @@ export {
   banner,
   user,
   register,
-  login
+  login,
+  logo_small,
 };

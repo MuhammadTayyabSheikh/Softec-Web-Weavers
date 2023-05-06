@@ -6,8 +6,7 @@ const AppRouter = () => {
   return (
     <Router>
       <Routes>
-
-        <Route path="/admin" element={<AdminRouter />} />
+        <Route path="/admin/*" element={<AdminRouter />} />
         <Route path="*" element={<ClientRouter />} />
       </Routes>
     </Router>

@@ -1,9 +1,9 @@
 import React from 'react'
-import CustomSidebar from '../components/adminPanelComponents/CustomSidebar/CustomSidebar';
+import CustomSidebar from '../components/adminPanelComponents/CustomSidebar';
 
 const AdminPanel = () => {
   return (
-    <CustomSidebar/>
+    <CustomSidebar />
   );
 }
 
