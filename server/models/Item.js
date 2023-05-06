@@ -53,8 +53,12 @@ const itemSchema = new mongoose.Schema(
 );
 
 const addServerUrl = (image) => {
+  if (typeof image === 'undefined') {
+    return null;
+  }
+  const SERVER_URL = process.env.SERVER_URL || 'http://localhost:3000';
   if (!image.startsWith('http')) {
-    return `${process.env.SERVER_URL}/${image}`;
+    return `${SERVER_URL}/${image}`;
   }
 
   return image;

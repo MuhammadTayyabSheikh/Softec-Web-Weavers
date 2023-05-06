@@ -34,7 +34,6 @@ const getItems = async (req, res) => {
       },
     });
 
-    console.log(q)
     if (sortBy) {
       q = q.sort([sortBy || 'createdAt', sortDirection || 'asc']);
     }
@@ -47,6 +46,7 @@ const getItems = async (req, res) => {
       q = q.limit(parseInt(pageSize) || 10);
     }
 
+    console.log('items: ', q);
     const items = await q.populate('category').exec();
     // foreach item get Reviews
     const itemsWithReviews = await Promise.all(

@@ -21,4 +21,23 @@ const getGear = () => {
     );
 };
 
+const createItem = async (type, title, description, marketPrice, costPrice, stock, minAge, category, image) => {
+  try {
+    const formData = new FormData();
+    formData.append('type', type);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('marketPrice', marketPrice);
+    formData.append('costPrice', costPrice);
+    formData.append('stock', stock);
+    formData.append('minAge', minAge);
+    formData.append('category', category);
+    formData.append('image', image);
+  } catch (error) {
+    console.log('items/createItem error: ', error);
+    return error;
+  } 
+};
+
+
 export { getGames, getGear };
