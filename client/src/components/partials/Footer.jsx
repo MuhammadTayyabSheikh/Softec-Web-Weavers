@@ -5,7 +5,7 @@ import { navLinks } from "../../constants";
 
 function Footer(props) {
   return (
-    <div className="fixed-bottom row background-gray paddingX text-white w-100 paddingX py-5 mx-auto ">
+    <div className="row background-gray paddingX text-white w-100 paddingX py-5 mx-auto">
       <div className="col-12 col-md-6 col-lg-4">
         <img src={logo} alt="" width={"200px"} className="img-fluid mb-3 pulse"/>
         {/* <h3 className="font-clash">Digi-Corn</h3> */}

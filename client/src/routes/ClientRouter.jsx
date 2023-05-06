@@ -9,8 +9,8 @@ const ClientRouter = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="sign-up" element={<SignUp />} />
+        <Route path="login" element={<Login />} />
       </Routes>
       <Footer />
     </>
