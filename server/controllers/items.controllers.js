@@ -117,3 +117,28 @@ const updateItem = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+const deleteItem = async (req, res) => {
+  try {
+    const { id } = req.query;
+
+    const item = await Item.findByIdAndUpdate(id, {
+      isDeleted: true,
+    });
+
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+
+    return res.status(200).json('Item deleted');
+  } catch (error) {
+    console.log('items/deleteItem error: ', error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  getItems,
+  getItem,
+  createItem,
+  updateItem,
+  deleteItem,
+};

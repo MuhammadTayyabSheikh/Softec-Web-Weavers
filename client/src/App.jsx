@@ -1,12 +1,13 @@
-import "./App.css";
-import AppRouter from "./routes";
-import AdminRouter from "./routes/AdminRouter";
-import ClientRouter from "./routes/ClientRouter";
+import './App.css';
+import AppRouter from './routes';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <>
-      <AppRouter/>
+      <AppRouter />
+      <ToastContainer theme='dark' hideProgressBar />
     </>
   );
 }
