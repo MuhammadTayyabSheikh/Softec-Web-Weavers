@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: myapp-server
     container_name: myapp-node-server
-    command: /usr/src/app/node_modules/.bin/nodemon server.js
+    command: yarn dev
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
@@ -21,7 +21,10 @@ services:
     networks:
       - app-network
   mongo:
-    image: mongo
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pass
     volumes:
       - data-volume:/data/db
     ports:
@@ -34,7 +37,7 @@ services:
       dockerfile: Dockerfile
     image: myapp-client
     container_name: myapp-react-client
-    command: npm start
+    command: yarn dev
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules
