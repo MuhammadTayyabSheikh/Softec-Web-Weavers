@@ -182,6 +182,23 @@ const removeFromCart = async (req, res) => {
 };
 
 const checkout = async (req, res) => {
+  // app.post('/api/payment', async (req, res) => {
+  //   const { token, amount } = req.body;
+  
+  //   try {
+  //     const charge = await stripe.charges.create({
+  //       amount,
+  //       currency: 'PKR',
+  //       description: 'Game Hub payment',
+  //       source: token.id,
+  //     });
+  
+  //     res.status(200).send('Payment succeeded');
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).send('Payment failed');
+  //   }
+  // });
   try {
     const { id } = req.user;
 
