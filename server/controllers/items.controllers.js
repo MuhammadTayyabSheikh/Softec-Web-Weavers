@@ -22,7 +22,7 @@ const getItems = async (req, res) => {
       return res.status(404).json({ message: 'Invalid type' });
     }
 
-    let q = Item.find({
+    const items = await Item.find({
       type,
       title: search ? { $regex: search, $options: 'i' } : { $exists: true },
       category: category || { $exists: true },
@@ -30,21 +30,10 @@ const getItems = async (req, res) => {
         $gte: minPrice || 0,
         $lte: maxPrice || 1000000,
       },
-    });
-
-    if (sortBy) {
-      q = q.sort([sortBy || 'createdAt', sortDirection || 'asc']);
-    }
-
-    if (page) {
-      q = q.skip((parseInt(page) - 1) * parseInt(pageSize || 10));
-    }
-
-    if (pageSize) {
-      q = q.limit(parseInt(pageSize) || 10);
-    }
-
-    const items = await q;
+    })
+      .sort([sortBy || 'createdAt', sortDirection || 'asc'])
+      .skip((parseInt(page) - 1) * parseInt(pageSize || 10))
+      .limit(parseInt(pageSize) || 10);
 
     // foreach item get Reviews
     const itemsWithReviews = await Promise.all(
