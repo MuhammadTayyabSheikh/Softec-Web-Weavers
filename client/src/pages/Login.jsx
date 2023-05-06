@@ -38,13 +38,13 @@ function Login(props) {
                           <img src={logo} width={"150px"} />
                         </div>
 
-                        <h5
-                          className="fw-normal mb-3 pb-3 font-clash h4"
+                        <h3
+                          className="fw-normal mb-3 pb-3 font-clash"
                           style={{ letterSpacing: "1px" }}
                         >
                           <span className="text-gradient">Sign</span> into your
                           account
-                        </h5>
+                        </h3>
 
                         <div className="form-outline mb-4">
                           <input
