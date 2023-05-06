@@ -1,5 +1,5 @@
 import bg from "./bg.png";
-import hero from "./hero.jpg";
+import hero from "./hero2.jpg";
 import img1 from "./img1.png";
 import img2 from "./img2.png";
 import img3 from "./img3.png";
