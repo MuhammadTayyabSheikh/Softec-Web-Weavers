@@ -6,7 +6,7 @@ const getMe = async (req, res) => {
   try {
     const { id } = req.user;
 
-    const user = await User.findById(id).select('-password,-isAdmin');
+    const user = await User.findById(id).select('-password -isAdmin');
 
     res.status(200).json({
       user: {

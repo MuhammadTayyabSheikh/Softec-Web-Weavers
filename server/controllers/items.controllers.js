@@ -1,5 +1,6 @@
 const InventoryType = require('../constants/InventoryType');
 const Item = require('../models/Item');
+const Review = require('../models/Review');
 const removeFiles = require('../utils/removeFiles');
 const uploadFiles = require('../utils/uploadFiles');
 
@@ -33,7 +34,16 @@ const getItems = async (req, res) => {
 
     const items = await q.exec();
 
-    if (so) res.status(200).json({ items });
+    // foreach item get Reviews
+    const itemsWithReviews = await Promise.all(
+      items.map(async (item) => {
+        const reviews = await Review.find({ item: item._id }).exec();
+        item.reviews = reviews;
+        return item;
+      }),
+    );
+
+    res.status(200).json({ items: itemsWithReviews });
   } catch (error) {
     console.log('items/getItems error: ', error);
     res.status(500).json({ message: error.message });
@@ -49,6 +59,10 @@ const getItem = async (req, res) => {
     if (!item) {
       return res.status(404).json({ message: 'Item not found' });
     }
+
+    const reviews = await Review.find({ item: item._id }).exec();
+
+    item.reviews = reviews;
 
     res.status(200).json({ item });
   } catch (error) {
@@ -79,6 +93,8 @@ const createItem = async (req, res) => {
       minAge,
       image,
     });
+
+    item.reviews = [];
 
     res.status(200).json({ item });
   } catch (error) {

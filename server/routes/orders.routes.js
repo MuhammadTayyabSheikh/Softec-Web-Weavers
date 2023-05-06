@@ -1,24 +1,15 @@
 const router = require('express').Router();
 const authorize = require('../middlewares/authorize');
+const orderControllers = require('../controllers/orders.controller');
 
-router.get('/', authorize(), (req, res) => {
-  res.send('Get all orders');
-});
+router.get('/', authorize(), orderControllers.getAllOrders);
 
-router.get('/:id', authorize(), (req, res) => {
-  res.send('Get one order');
-});
+router.get('/:id', authorize(), orderControllers.getOrder);
 
-router.put('/:id', authorize(), (req, res) => {
-  res.send('Update an order');
-});
+router.put('/:id', authorize(), orderControllers.updateOrder);
 
-router.delete('/:id', authorize('admin'), (req, res) => {
-  res.send('Delete an order');
-});
+router.delete('/:id', authorize('admin'), orderControllers.deleteOrder);
 
-router.post('/review', authorize('user'), (req, res) => {
-  res.send('Create a review');
-});
+router.post('/review', authorize('user'), orderControllers.createReview);
 
 module.exports = router;
