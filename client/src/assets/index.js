@@ -28,7 +28,7 @@ import Swatches from "./Swatches.svg";
 import Video from "./Video.svg";
 import Wand from "./Wand.svg";
 import user from "./user.jpg";
-import register from "./signup.jpg";
+import signup from "./signup.jpg";
 import login from "./login.jpg";
 
 export {
@@ -62,6 +62,6 @@ export {
   img2,
   banner,
   user,
-  register,
+  signup,
   login
 };
