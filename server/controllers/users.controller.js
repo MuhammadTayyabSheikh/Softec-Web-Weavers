@@ -16,7 +16,9 @@ const getMe = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        profilePicture: user.profilePicture,
+        profilePicture: user.profilePicture?.startsWith('http')
+          ? user.profilePicture
+          : `${process.env.SERVER_URL}/${user.profilePicture}`,
         email: user.email,
         dob: user.dob,
         gender: user.gender,
