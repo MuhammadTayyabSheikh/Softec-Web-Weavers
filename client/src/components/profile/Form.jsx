@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { user, logo } from "../../assets";
 import { Pencil } from "react-bootstrap-icons";
-import { getMe } from "../../api/UsersAPI";
+import { getMe, updateMe } from "../../api/UsersAPI";
 
 
 function Form(props) {
@@ -19,13 +19,22 @@ function Form(props) {
 
   useEffect(() => {
     getMe().then((res) => {
-      setId(res.data._id);
-      setName(res.data.name);
-      setEmail(res.data.email);
-      setImage(res.data.image);
+      console.log(res.user, '*************');
+      setId(res.user.id);
+      setName(res.user.name);
+      setEmail(res.user.email);
+      setImage(res.user.profilePicture);
+      setPicPreview(res.user.profilePicture);
     }
     );
   }, []);
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+
+    updateMe({name, profilePicture:image});
+  }
+
 
 
   function handlePicChange(e) {
@@ -170,7 +179,7 @@ function Form(props) {
         <button
           type="submit"
           className="btn btn-lg background-secondary rounded-pill px-5 py-2 text-white mt-3"
-        // onClick={handleUpdate}
+        onClick={handleUpdate}
         >
           Save Changes
         </button>

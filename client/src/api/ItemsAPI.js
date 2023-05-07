@@ -22,6 +22,7 @@ const getGear = () => {
 };
 
 const createItem = async ({type, title, description, marketPrice, costPrice, stock, minAge, category, image}) => {
+  console.log({type, title, description, marketPrice, costPrice, stock, minAge, category})
   try {
     const formData = new FormData();
     formData.append('title', title);

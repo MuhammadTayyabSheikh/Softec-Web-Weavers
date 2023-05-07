@@ -33,9 +33,9 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
-      localStorage.removeItem('token');
-    }
+    // if (error.response?.status === 401 || error.response?.status === 403) {
+    //   localStorage.removeItem('token');
+    // }
 
     if (error.response?.data?.length > 0) {
       error.response?.data.forEach((message) => toast.error(message));

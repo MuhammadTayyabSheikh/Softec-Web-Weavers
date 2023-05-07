@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { navLinks } from '../../constants';
 import { CartFill, ChevronDown, Heart, HeartFill } from 'react-bootstrap-icons';
 import { logo } from '../../assets';
+import { createItem } from '../../api/ItemsAPI';
 
 function AdminNavBar(props) {
   const [image, setImage] = useState('');
@@ -10,16 +11,17 @@ function AdminNavBar(props) {
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
-  // market price
-  // cost price
-  // stock use states
-  // age limit
   const [marketPrice, setMarketPrice] = useState(0);
   const [costPrice, setCostPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [minAge, setMinAge] = useState(12);
 
+  // createItem
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    createItem({ type, description, title, marketPrice, costPrice, stock, minAge, image });
+  } 
 
   return (
     <>

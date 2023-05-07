@@ -24,8 +24,6 @@ function Navbar(props) {
     }
   }, [loggedIn])
 
-
-
   return (
     <div className='sticky-top w-100 mx-auto'>
       <nav className='py-3 navbar navbar-expand-lg navbar-light background-dark paddingX'>

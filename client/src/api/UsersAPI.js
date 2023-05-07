@@ -1,15 +1,14 @@
+import { toast } from 'react-toastify';
 import axios from './axios.config';
 
 const getMe = async () => {
   return axios.get('/users/me').then((res) => res.data);
 };
 
-const updateMe = async ({ name, dob, gender, profilePicture }) => {
+const updateMe = async ({ name, profilePicture }) => {
   const formData = new FormData();
 
   if (name) formData.append('name', name);
-  if (dob) formData.append('dob', dob);
-  if (gender) formData.append('gender', gender);
   if (profilePicture) formData.append('profilePicture', profilePicture);
 
   return axios
@@ -18,7 +17,7 @@ const updateMe = async ({ name, dob, gender, profilePicture }) => {
         'Content-Type': 'multipart/form-data',
       },
     })
-    .then((res) => res.data);
+    .then((res) => toast.success('Profile  updated Successfully'));
 };
 
 const getFavorites = async () => {

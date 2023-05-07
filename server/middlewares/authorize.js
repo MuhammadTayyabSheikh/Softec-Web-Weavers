@@ -1,17 +1,18 @@
 const authorize =
   (...roles) =>
-  (req, res, next) => {
-    const { user } = req;
-    console.log(user, '================')
-    if (!user) {
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
+    (req, res, next) => {
+      const { user } = req;
+      if (!user) {
+        console.log(user, '================')
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
+      console.log(user, 'roles$$$$$$$$$$$$$$')
+      if (roles.length && !roles.includes(user.role)) {
+        console.log(user, roles, 'Forbidden!!!!!!!!!!!!!')
+        return res.status(403).json({ message: 'Forbidden' });
+      }
 
-    if (!roles.includes(user.role)) {
-      return res.status(403).json({ message: 'Forbidden' });
-    }
-
-    next();
-  };
+      next();
+    };
 
 module.exports = authorize;

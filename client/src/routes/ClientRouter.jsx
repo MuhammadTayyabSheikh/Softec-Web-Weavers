@@ -11,6 +11,7 @@ import {
   Profile,
   SignUp,
 } from '../pages';
+import Orders from '../pages/Orders';
 
 const ClientRouter = () => {
   return (
@@ -25,6 +26,7 @@ const ClientRouter = () => {
         <Route path='/cart' element={<CartPage />} />
         <Route path='/browse' element={<Marketplace />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/orders' element={<Orders />} />
 
         
       </Routes>
