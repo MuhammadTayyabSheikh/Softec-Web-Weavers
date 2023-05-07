@@ -14,6 +14,7 @@ const register = async ({ name, email, password, dob, gender }) => {
     })
     .then((res) => {
       console.log(res.data);
+      localStorage.setItem('token', res.data.token);
     });
 };
 
@@ -25,6 +26,7 @@ const login = async ({ email, password }) => {
     })
     .then((res) => {
       localStorage.setItem('token', res.data.token);
+      window.location.href = '/';
 
       socket = io('http://localhost:5000', {
         query: {
@@ -42,6 +44,7 @@ const isLoggedIn = () => {
 
 const logout = () => {
   localStorage.removeItem('token');
+  window.location.href = '/';
   // socket.disconnect();
 };
 

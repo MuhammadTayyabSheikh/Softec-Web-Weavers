@@ -167,7 +167,7 @@ function Navbar(props) {
               {loggedIn ? <button className='btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0'
                 onClick={logout}
               >
-                Logoutfghj
+                Logout
               </button>
                 :
                 <Link to={'/login'}>
