@@ -8,9 +8,7 @@ const decodeAccessToken = () => (req, res, next) => {
 
   try {
     const decodedToken = decodeToken(token);
-    console.log(decodedToken, 'deeeeeeeeeeeeeeee');
     req.user = decodedToken;
-    console.log(req.user, 'req.user@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     return next();
   } catch (error) {
     return next();

@@ -2,7 +2,7 @@ import React from 'react';
 import { cardData } from '../../constants';
 import { CartCard } from '../partials';
 import StripeCheckout from 'react-stripe-checkout';
-import UsersAPI from '../../api/UsersAPI';
+import { checkout } from '../../api/UsersAPI';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -11,7 +11,7 @@ function Cart(props) {
 
   const handleToken = async (token) => {
     try {
-      const response = await UsersAPI.checkout({ token });
+      const response = await checkout({ token });
 
       if (!response.ok) {
         throw new Error('Payment failed');
