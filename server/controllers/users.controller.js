@@ -1,6 +1,10 @@
 const User = require('../models/User');
+const Order = require('../models/Order');
 const removeFiles = require('../utils/removeFiles');
 const uploadFiles = require('../utils/uploadFiles');
+const stripe = require('stripe')(
+  'sk_test_51Lcpl3Bf25LGtW9h8EGbj8RJSfcQWNHxZCuaIsEPtx60W8BPxw4R1bbTgydzfIMoH9qEzOElqDlviGOqrnEhlTwl00f6ADqWmE',
+);
 
 const getMe = async (req, res) => {
   try {
@@ -12,7 +16,9 @@ const getMe = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        profilePicture: user.profilePicture,
+        profilePicture: user.profilePicture?.startsWith('http')
+          ? user.profilePicture
+          : `${process.env.SERVER_URL}/${user.profilePicture}`,
         email: user.email,
         dob: user.dob,
         gender: user.gender,
@@ -183,25 +189,9 @@ const removeFromCart = async (req, res) => {
 };
 
 const checkout = async (req, res) => {
-  // app.post('/api/payment', async (req, res) => {
-  //   const { token, amount } = req.body;
-
-  //   try {
-  //     const charge = await stripe.charges.create({
-  //       amount,
-  //       currency: 'PKR',
-  //       description: 'Game Hub payment',
-  //       source: token.id,
-  //     });
-
-  //     res.status(200).send('Payment succeeded');
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).send('Payment failed');
-  //   }
-  // });
   try {
     const { id } = req.user;
+    const { token } = req.body;
 
     const user = await User.findById(id).populate('cart.item');
 
@@ -209,13 +199,36 @@ const checkout = async (req, res) => {
       return res.status(400).json({ message: 'Cart is empty' });
     }
 
-    const order = {
+    const ammount = user.cart.reduce((acc, item) => {
+      return acc + item.item.price * item.quantity;
+    }, 0);
+
+    const charge = await stripe.charges.create({
+      amount: ammount * 100,
+      currency: 'PKR',
+      description: 'Game Hub payment',
+      source: token.id,
+    });
+
+    const order = new Order({
       user: id,
       items: user.cart,
-      total: user.cart.reduce((acc, item) => {
-        return acc + item.item.price * item.quantity;
-      }, 0),
-    };
+      paymentId: charge.id,
+      address: {
+        city: charge.billing_details.address.city,
+        country: charge.billing_details.address.country,
+        line1: charge.billing_details.address.line1,
+        line2: charge.billing_details.address.line2,
+        postal_code: charge.billing_details.address.postal_code,
+        state: charge.billing_details.address.state,
+      },
+      name: charge.billing_details.name,
+      email: charge.billing_details.email,
+      phone: charge.billing_details.phone,
+      total: ammount,
+    });
+
+    await order.save();
 
     user.cart = [];
 

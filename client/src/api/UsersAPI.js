@@ -44,10 +44,8 @@ const removeFromCart = async ({ itemId }) => {
   return axios.delete(`/users/cart/${itemId}`).then((res) => res.data);
 };
 
-const checkout = async ({ paymentMethodId }) => {
-  return axios
-    .post('/users/cart/checkout', { paymentMethodId })
-    .then((res) => res.data);
+const checkout = async ({ token }) => {
+  return axios.post('/users/cart/checkout', { token }).then((res) => res.data);
 };
 
 const getBlacklist = async () => {

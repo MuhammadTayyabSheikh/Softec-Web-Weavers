@@ -22,46 +22,47 @@ function Navbar(props) {
         console.log(res, 'cart+++++++++++++++++++++++++++');
       });
     }
-  }, [loggedIn])
+  }, [loggedIn]);
 
   return (
     <div className='sticky-top w-100 mx-auto'>
       <nav className='py-3 navbar navbar-expand-lg navbar-light background-dark paddingX'>
-        {loggedIn &&
-          <div className="dropdown d-inline mr-4 d-lg-none">
+        {loggedIn && (
+          <div className='dropdown d-inline mr-4 d-lg-none'>
             <Link
-              className="dropdown-toggle"
-              to="#"
-              role="button"
-              id="profile-dropdown"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+              className='dropdown-toggle'
+              to='#'
+              role='button'
+              id='profile-dropdown'
+              data-toggle='dropdown'
+              aria-haspopup='true'
+              aria-expanded='false'
             >
               <img
-                src={``}
-                alt=""
-                width={"40px"}
-                height={"40px"}
-                style={{ borderRadius: "20px" }}
-                className=""
+                src={`${Base_URL}uploads/users/${pic}`}
+                alt=''
+                width={'40px'}
+                height={'40px'}
+                style={{ borderRadius: '20px' }}
+                className=''
               />
             </Link>
-            <div className="dropdown-menu" aria-labelledby="profile-dropdown">
-              <Link className="dropdown-item" to="/profile">
+            <div className='dropdown-menu' aria-labelledby='profile-dropdown'>
+              <Link className='dropdown-item' to='/profile'>
                 My Profile
               </Link>
-              <Link className="dropdown-item" to="#">
+              <Link className='dropdown-item' to='#'>
                 My NFTs
               </Link>
               <button
-                className="dropdown-item btn btn-sm background-secondary rounded-pill py-2 px-4"
+                className='dropdown-item btn btn-sm background-secondary rounded-pill py-2 px-4'
                 onClick={logout}
               >
                 Logout
               </button>
             </div>
-          </div>}
+          </div>
+        )}
 
         <Link to={'/'}>
           <img
@@ -129,63 +130,61 @@ function Navbar(props) {
               </li>
             ))}
 
-            {loggedIn &&
-              <li className="nav-item d-none d-lg-block">
-                <div className="dropdown">
+            {loggedIn ? (
+              <li className='nav-item d-none d-lg-block'>
+                <div className='dropdown'>
                   <Link
-                    className="dropdown-toggle"
-                    to="#"
-                    role="button"
-                    id="profile-dropdown"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+                    className='dropdown-toggle'
+                    to='#'
+                    role='button'
+                    id='profile-dropdown'
+                    data-toggle='dropdown'
+                    aria-haspopup='true'
+                    aria-expanded='false'
                   >
                     <img
-                      src={`${userImg}`}
-                      alt=""
-                      width={"40px"}
-                      height={"40px"}
-                      style={{ borderRadius: "20px" }}
-                      className=""
+                      src={`${Base_URL}uploads/users/${pic}`}
+                      alt=''
+                      width={'40px'}
+                      height={'40px'}
+                      style={{ borderRadius: '20px' }}
+                      className=''
                     />
                   </Link>
                   <div
-                    className="dropdown-menu"
-                    aria-labelledby="profile-dropdown"
+                    className='dropdown-menu'
+                    aria-labelledby='profile-dropdown'
                   >
-                    <Link className="dropdown-item" to="/profile">
+                    <Link className='dropdown-item' to='/profile'>
                       My Profile
                     </Link>
-                    <Link className="dropdown-item" to="#">
-                      My Orders
+                    <Link className='dropdown-item' to='#'>
+                      My NFTS
                     </Link>
                     <button
-                      className="dropdown-item btn btn-sm background-secondary rounded-pill py-2 px-4"
+                      className='dropdown-item btn btn-sm background-secondary rounded-pill py-2 px-4'
                       onClick={logout}
                     >
                       Logout
                     </button>
                   </div>
                 </div>
-              </li>}
-
-            <>
-              {/* <Link to={"/sign-up"}>
-                  <button className="btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0">
+              </li>
+            ) : (
+              <>
+                <Link to={'/sign-up'}>
+                  <button className='btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0'>
                     Sign Up
                   </button>
-                </Link> */}
-              {!loggedIn &&
+                </Link>
                 <Link to={'/login'}>
-                  <button className='btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0'
-                  >
+                  <button className='btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0'>
                     Login
                   </button>
                 </Link>
-              }
+              </>
+            )}
 
-            </>
             <div className='px-4'>
               <Link to={'/favorites'}>
                 <button className='btn btn-sm mr-3 py-2 text-white my-2 my-lg-0'>
