@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp, X } from 'react-bootstrap-icons';
 import { removeFromCart } from '../../api/UsersAPI';
 
 function CartCard({ product, quantity, fetchCartItem }) {
+  console.log(product, 'cart ))))))))))))))))))')
   return (
     <>
       <div
@@ -11,7 +12,7 @@ function CartCard({ product, quantity, fetchCartItem }) {
       >
         <div className='col-4'>
           <img
-            src={`${product.image}`}
+            src={`${product?.image}`}
             alt=''
             className='rounded'
             height={'150px'}

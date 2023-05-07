@@ -3,6 +3,7 @@ import { cardData } from '../../constants';
 import { Card } from '../partials';
 
 function Results(props) {
+  
   return (
     <div className='col-12 col-lg-9 px-0 px-lg-3'>
       <div className='row'>

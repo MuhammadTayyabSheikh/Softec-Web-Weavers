@@ -1,14 +1,14 @@
 import React from 'react';
 import { topCategories } from '../../constants';
 
-function Filters(props) {
+function Filters({ price, setPrice, categories, setCategories }) {
   return (
     <>
       <div
         className='col-3 paraColor filters rounded-border px-3 py-5 h-100 sticky-lg-top d-none d-lg-block'
         style={{ top: '80px' }}
       >
-      
+
         <p className='h4 font-clash text-white'>Price</p>
         <div className='row ml-3'>
           <div className='col-6'>
@@ -165,7 +165,7 @@ function Filters(props) {
                 <hr className='background-gray' />
                 <p className='h4 font-clash text-white'>Category</p>
                 <div className='row ml-3'>
-                  {topCategories.map((cat,key) => (
+                  {topCategories.map((cat, key) => (
                     <div className='col-6 form-check' key={key}>
                       <input
                         className='form-check-input'

@@ -10,7 +10,7 @@ function Search(props) {
               id="search"
               type="text"
               className="form-control form-control-lg background-gray rounded-border paraColor formInput"
-              placeholder='Search NFTs'
+              placeholder='Search'
             />
           </div>
         </div>
@@ -20,7 +20,7 @@ function Search(props) {
               id="search"
               type="text"
               className="form-control form-control-lg background-gray rounded-border paraColor formInput"
-              placeholder='Search NFTs'
+              placeholder='Search'
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Cart, CartFill, HeartFill, StarFill } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
-import { addToFavorites, removeFromFavorites } from '../../api/UsersAPI';
+import { addToCart, addToFavorites, removeFromFavorites } from '../../api/UsersAPI';
 
 function Product({ product, refetch }) {
   const navigate = useNavigate();
