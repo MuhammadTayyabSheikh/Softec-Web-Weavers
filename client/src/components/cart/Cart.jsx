@@ -2,28 +2,24 @@ import React from 'react';
 import { cardData } from '../../constants';
 import { CartCard } from '../partials';
 import StripeCheckout from 'react-stripe-checkout';
+import UsersAPI from '../../api/UsersAPI';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Cart(props) {
+  const navigate = useNavigate();
+
   const handleToken = async (token) => {
     try {
-      const response = await fetch('/api/payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token,
-          amount,
-        }),
-      });
+      const response = await UsersAPI.checkout({ token });
 
       if (!response.ok) {
         throw new Error('Payment failed');
       }
 
-      onPaymentSuccess();
+      navigate('/orders');
     } catch (error) {
-      onPaymentError(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -64,9 +60,7 @@ function Cart(props) {
               description={`Payment of PKR 2000`}
               amount={2000} // Stripe expects amount in cents
               currency='PKR'
-              stripeKey={
-                'pk_test_51Lcpl3Bf25LGtW9hgC4vbqmIkGB7MVf88laSzw1vmZee97kMYpPa3HU3BnUbs3XcHbR79wjJBlv6sYN8UvOz6rcD00cFqXZ9Xi'
-              }
+              stripeKey={import.meta.env.VITE_STRIPE_KEY}
               token={handleToken}
               shippingAddress
               billingAddress

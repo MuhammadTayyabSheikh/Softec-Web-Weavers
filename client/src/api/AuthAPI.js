@@ -28,7 +28,7 @@ const login = async ({ email, password }) => {
       localStorage.setItem('token', res.data.token);
       window.location.href = '/';
 
-      socket = io('http://localhost:5000', {
+      socket = io(import.meta.env.VITE_SERVER_URL, {
         query: {
           token: res.data.token,
         },
