@@ -22,19 +22,14 @@ function Navbar(props) {
 
   useEffect(() => {
     if (loggedIn) {
-      getCart().then((res) => {
-        console.log(res, 'cart+++++++++++++++++++++++++++');
-      });
+      getCart().then((res) => {});
     }
   }, [loggedIn]);
-
-  console.log(loggedIn, 'logged in');
 
   const [pic, setPic] = useState('');
   useEffect(() => {
     if (loggedIn) {
       getMe().then((res) => {
-        console.log(res, 'me');
         setPic(res.user.profilePicture);
       });
     }
