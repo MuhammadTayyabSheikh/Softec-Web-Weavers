@@ -111,74 +111,74 @@ function Form(props) {
                 onChange={(e) => handlePicChange(e)}
               />
               <label htmlFor='pic'>
-      <Pencil
-        color='white'
-        className='pointer background-gray p-2'
-        size={'30px'}
-        style={{
-          position: 'absolute',
-          top: '60%',
-          left: '40%',
-          borderRadius: '10px',
-        }}
-      />
-    </label>
-  </>
+                <Pencil
+                  color='white'
+                  className='pointer background-gray p-2'
+                  size={'30px'}
+                  style={{
+                    position: 'absolute',
+                    top: '60%',
+                    left: '40%',
+                    borderRadius: '10px',
+                  }}
+                />
+              </label>
+            </>
           )
-}
+          }
         </div >
       </div >
       <div className='col-lg-9'>
-          <div className='form-group'>
-            <label htmlFor='name' className='font-clash text-white'>
-              Display Name
-            </label>
-            <input
-              id='name'
-              name='name'
-              type='text'
-              value={name}
-              className='form-control form-control-lg background-gray rounded-border paraColor formInput'
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
         <div className='form-group'>
-      <label htmlFor='email' className='font-clash text-white'>
-        Email
-      </label>
-      <input
-        id='email'
-        name='email'
-        type='email'
-        value={email}
-        className='form-control form-control-lg background-gray rounded-border paraColor formInput'
-        disabled
-      />
-    </div>
+          <label htmlFor='name' className='font-clash text-white'>
+            Display Name
+          </label>
+          <input
+            id='name'
+            name='name'
+            type='text'
+            value={name}
+            className='form-control form-control-lg background-gray rounded-border paraColor formInput'
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
         <div className='form-group'>
-      <label htmlFor='bio' className='font-clash text-white'>
-        Bio
-      </label>
-      <textarea
-        id='bio'
-        name='bio'
-        type='text'
-        value={bio}
-        rows={2}
-        className='form-control form-control-lg background-gray rounded-border paraColor formInput'
-        placeholder='Tell us something about you.'
-        onChange={(e) => setBio(e.target.value)}
-      />
-    </div>
+          <label htmlFor='email' className='font-clash text-white'>
+            Email
+          </label>
+          <input
+            id='email'
+            name='email'
+            type='email'
+            value={email}
+            className='form-control form-control-lg background-gray rounded-border paraColor formInput'
+            disabled
+          />
+        </div>
+        <div className='form-group'>
+          <label htmlFor='bio' className='font-clash text-white'>
+            Bio
+          </label>
+          <textarea
+            id='bio'
+            name='bio'
+            type='text'
+            value={bio}
+            rows={2}
+            className='form-control form-control-lg background-gray rounded-border paraColor formInput'
+            placeholder='Tell us something about you.'
+            onChange={(e) => setBio(e.target.value)}
+          />
+        </div>
 
-    <button
-      type='submit'
-      className='btn btn-lg background-secondary rounded-pill px-5 py-2 text-white mt-3'
-      onClick={handleUpdate}
-    >
-      Save Changes
-    </button>
-</div>
+        <button
+          type='submit'
+          className='btn btn-lg background-secondary rounded-pill px-5 py-2 text-white mt-3'
+          onClick={handleUpdate}
+        >
+          Save Changes
+        </button>
+      </div>
     </div >
   );
 }

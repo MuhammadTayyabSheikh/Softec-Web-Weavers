@@ -7,7 +7,7 @@ const uploadFiles = async (files, directory = 'others') => {
     const paths = [];
 
     files.map(async (file) => {
-      const dir = `/public/uploads/${directory}/`;
+      const dir = `public/uploads/${directory}/`;
       const path = dir + Date.now() + file.name;
 
       const exists = await fs

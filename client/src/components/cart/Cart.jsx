@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { cardData } from '../../constants';
 import { CartCard } from '../partials';
 import StripeCheckout from 'react-stripe-checkout';
@@ -6,7 +6,7 @@ import { checkout } from '../../api/UsersAPI';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-function Cart(props) {
+function Cart({ items, fetchCartItem }) {
   const navigate = useNavigate();
 
   const handleToken = async (token) => {
@@ -23,6 +23,18 @@ function Cart(props) {
     }
   };
 
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    let totalPrice = 0;
+    items.forEach((item) => {
+      totalPrice += item.item.marketPrice * item.quantity;
+      // console.log(item.item.marketPrice)
+    });
+    setTotal(totalPrice);
+  }, [items])
+  
+
   return (
     <div className='row pt-5'>
       <div className='col-12'>
@@ -31,8 +43,8 @@ function Cart(props) {
         </h1>
       </div>
       <div className='col-6'>
-        {cardData?.map((product, key) => (
-          <CartCard product={product} key={key} />
+        {items?.map((item, key) => (
+          <CartCard product={item.item} quantity={item.quantity} key={key} fetchCartItem={fetchCartItem} />
         ))}
       </div>
       <div className='col-1'></div>
@@ -49,7 +61,13 @@ function Cart(props) {
             <h5 className='font-clash paraColor'>Sub-Total: </h5>
           </div>
           <div className='col-6'>
-            <h5 className='font-clash paraColor'>PKR 13456.88</h5>
+            <h5 className='font-clash paraColor'>PKR {total}</h5>
+          </div>
+          <div className='col-6'>
+            <h5 className='font-clash paraColor'>Delivery Fee: </h5>
+          </div>
+          <div className='col-6'>
+            <h5 className='font-clash paraColor'>PKR 0.00</h5>
           </div>
           <div className='col-12'>
             <hr className='background-secondary' />

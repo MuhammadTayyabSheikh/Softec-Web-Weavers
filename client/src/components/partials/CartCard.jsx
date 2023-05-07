@@ -1,7 +1,8 @@
 import React from 'react';
 import { ChevronDown, ChevronUp, X } from 'react-bootstrap-icons';
+import { removeFromCart } from '../../api/UsersAPI';
 
-function CartCard({ product }) {
+function CartCard({ product, quantity, fetchCartItem }) {
   return (
     <>
       <div
@@ -14,13 +15,14 @@ function CartCard({ product }) {
             alt=''
             className='rounded'
             height={'150px'}
+            width={'100%'}
           />
         </div>
         <div className='col-8 my-auto'>
           <h3 className='font-clas paraColor'>{product.name}</h3>
-          <p className='secondary'>PKR 232.00</p>
+          <p className='secondary'>PKR {product.marketPrice}</p>
           <div className='d-flex gap-3'>
-            <p className='paraColor'>Quantity: 237</p>
+            <p className='paraColor'>Quantity: {quantity}</p>
             <div className='d-flex flex-column ml-2'>
               <ChevronUp color='#858584' size={"10px"}/>
               <ChevronDown color='#858584' size={"10px"}/>
@@ -31,6 +33,7 @@ function CartCard({ product }) {
           color='#fff'
           size={'30px'}
           style={{ position: 'absolute', top: '10px', right: '10px' }}
+          onClick={() => { removeFromCart(product._id); console.log.og('clicked', item._id); fetchCartItem();}}
         />
       </div>
       <hr className='background-gray' />

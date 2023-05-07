@@ -21,12 +21,6 @@ function Navbar(props) {
     setLoggedIn(isLoggedIn());
   });
   
-  useEffect(() => {
-    if (loggedIn) {
-      getCart().then((res) => {});
-    }
-  }, [loggedIn]);
-
   const [pic, setPic] = useState('');
   useEffect(() => {
     if (loggedIn) {

@@ -49,7 +49,13 @@ function Card({ product }) {
                 color='#b58900'
                 onClick={() => {
                   console.log(product._id)
-                  addToCart({itemId: product._id});
+                  addToCart({itemId: product._id}).then (res => {
+                    console.log(res)
+                  }).catch(err => {
+                    console.log(err)
+                  })
+                  
+                  ;
                 }}
               />
             </div>
