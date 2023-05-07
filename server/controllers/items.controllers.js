@@ -50,7 +50,7 @@ const getItems = async (req, res) => {
       const user = await User.findById(req.user.id).select('favorites').exec();
       richItem = itemsWithReviews.map((item) => {
         return {
-          ...item,
+          ...item._doc,
           isFavorite: !!user.favorites.find((favorite) => favorite == item._id),
         };
       });
