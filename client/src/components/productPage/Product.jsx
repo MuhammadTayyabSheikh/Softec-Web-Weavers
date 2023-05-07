@@ -80,7 +80,17 @@ function Product({ product, refetch }) {
           </div>
           <div className='col-12 col-lg-6 mt-3 mt-lg-0'>
             <button className='btn btn-lg background-secondary rounded-pill w-100'>
-              <CartFill className='mr-2' />
+              <CartFill className='mr-2'
+                onClick={() => {
+                  addToCart({ itemId: product._id })
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                }}
+              />
               Add to Cart
             </button>
           </div>

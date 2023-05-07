@@ -57,9 +57,6 @@ function Navbar(props) {
               <Link className='dropdown-item' to='/profile'>
                 My Profile
               </Link>
-              <Link className='dropdown-item' to='#'>
-                My NFTs
-              </Link>
               <button
                 className='dropdown-item btn btn-sm background-secondary rounded-pill py-2 px-4'
                 onClick={logout}

@@ -19,7 +19,7 @@ function CartCard({ product, quantity, fetchCartItem }) {
           />
         </div>
         <div className='col-8 my-auto'>
-          <h3 className='font-clas paraColor'>{product.name}</h3>
+          <h3 className='font-clas paraColor'>{product.title}</h3>
           <p className='secondary'>PKR {product.marketPrice}</p>
           <div className='d-flex gap-3'>
             <p className='paraColor'>Quantity: {quantity}</p>
@@ -33,7 +33,7 @@ function CartCard({ product, quantity, fetchCartItem }) {
           color='#fff'
           size={'30px'}
           style={{ position: 'absolute', top: '10px', right: '10px' }}
-          onClick={() => { removeFromCart(product._id); console.log.og('clicked', item._id); fetchCartItem();}}
+          onClick={() => { removeFromCart({ itemId: product._id}); console.log('clicked----------------', product._id); fetchCartItem();}}
         />
       </div>
       <hr className='background-gray' />

@@ -5,6 +5,7 @@ import { Cart, CartFill, Heart, HeartFill } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../../api/UsersAPI';
 import { addToFavorites } from '../../api/UsersAPI';
+import { toast } from 'react-toastify';
 
 function Card({ product }) {
   const navigate = useNavigate();
@@ -56,7 +57,6 @@ function Card({ product }) {
                 className='pointer'
                 color='#b58900'
                 onClick={() => {
-                  console.log(product._id);
                   addToCart({ itemId: product._id })
                     .then((res) => {
                       console.log(res);

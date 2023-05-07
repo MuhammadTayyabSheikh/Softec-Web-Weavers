@@ -41,6 +41,7 @@ const addToCart = async ({ itemId }) => {
 };
 
 const removeFromCart = async ({ itemId }) => {
+  console.log(itemId, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
   return axios.delete(`/users/cart/${itemId}`).then((res) => res.data);
 };
 
