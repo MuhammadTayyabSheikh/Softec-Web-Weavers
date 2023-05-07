@@ -2,27 +2,30 @@ import { useState } from 'react';
 import axios from './axios.config';
 
 const getGames = () => {
-  return axios
-    .get('/items/VideoGame')
-    .then((res) => {
-      console.log(res.data);
-      return res.data;
-    }
-    );
+  return axios.get('/items/VideoGame').then((res) => {
+    console.log(res.data);
+    return res.data;
+  });
 };
 
 const getGear = () => {
-  return axios
-    .get('/items/GamingGear')
-    .then((res) => {
-      console.log(res.data);
-      return res.data;
-    }
-    );
+  return axios.get('/items/GamingGear').then((res) => {
+    console.log(res.data);
+    return res.data;
+  });
 };
 
-const createItem = async ({type, title, description, marketPrice, costPrice, stock, minAge, category, image}) => {
-  console.log({type, title, description, marketPrice, costPrice, stock, minAge, category})
+const createItem = async ({
+  type,
+  title,
+  description,
+  marketPrice,
+  costPrice,
+  stock,
+  minAge,
+  category,
+  image,
+}) => {
   try {
     const formData = new FormData();
     formData.append('title', title);
@@ -40,7 +43,6 @@ const createItem = async ({type, title, description, marketPrice, costPrice, sto
       },
     });
 
-    console.log('items/createItem res: ', res);
     return res.data;
   } catch (error) {
     console.log('items/createItem error: ', error);

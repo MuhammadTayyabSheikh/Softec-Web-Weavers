@@ -5,7 +5,7 @@ import { logo, user } from '../../assets';
 import { navLinks } from '../../constants';
 import { CartFill, ChevronDown, Heart, HeartFill } from 'react-bootstrap-icons';
 import { isLoggedIn, logout } from '../../api/AuthAPI';
-import { getCart } from '../../api/UsersAPI';
+import { getCart, getMe } from '../../api/UsersAPI';
 // import { navLinks } from "../../Constants";
 import { user as userImg } from '../../assets';
 
@@ -14,12 +14,28 @@ function Navbar(props) {
 
   useEffect(() => {
     setLoggedIn(isLoggedIn());
+
+    window.addEventListener('storage', () => {
+      setLoggedIn(isLoggedIn());
+    });
   }, []);
 
   useEffect(() => {
     if (loggedIn) {
       getCart().then((res) => {
         console.log(res, 'cart+++++++++++++++++++++++++++');
+      });
+    }
+  }, [loggedIn]);
+
+  console.log(loggedIn, 'logged in');
+
+  const [pic, setPic] = useState('');
+  useEffect(() => {
+    if (loggedIn) {
+      getMe().then((res) => {
+        console.log(res, 'me');
+        setPic(res.user.profilePicture);
       });
     }
   }, [loggedIn]);
@@ -39,7 +55,7 @@ function Navbar(props) {
               aria-expanded='false'
             >
               <img
-                src={`${Base_URL}uploads/users/${pic}`}
+                src={pic}
                 alt=''
                 width={'40px'}
                 height={'40px'}
@@ -143,7 +159,7 @@ function Navbar(props) {
                     aria-expanded='false'
                   >
                     <img
-                      src={`${Base_URL}uploads/users/${pic}`}
+                      src={pic}
                       alt=''
                       width={'40px'}
                       height={'40px'}
