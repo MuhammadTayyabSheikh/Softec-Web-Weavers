@@ -45,7 +45,7 @@ const getItems = async (req, res) => {
       }),
     );
 
-    let richItem = { ...itemsWithReviews };
+    let richItem = [...itemsWithReviews];
     if (req.user) {
       const user = await User.findById(req.user.id).select('favorites').exec();
       richItem = itemsWithReviews.map((item) => {
