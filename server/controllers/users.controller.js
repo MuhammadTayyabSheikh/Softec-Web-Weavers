@@ -71,7 +71,7 @@ const getFavorites = async (req, res) => {
 
     const user = await User.findById(id).populate('favorites');
 
-    res.status(200).json({ favorites: user.favorites });
+    res.status(200).json({ items: user.favorites });
   } catch (error) {
     console.log('users/favorites error: ', error);
     res.status(500).json({ message: error.message });

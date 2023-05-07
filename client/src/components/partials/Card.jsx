@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { topNFTs, cardData } from '../../constants';
 import { crypto } from '../../assets';
 import { Cart, CartFill, Heart, HeartFill } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../../api/UsersAPI';
-import { addToFavorites } from '../../api/UsersAPI';
+import { addToFavorites, removeFromFavorites } from '../../api/UsersAPI';
 import { toast } from 'react-toastify';
 
-function Card({ product }) {
-  console.log(product);
+function Card({ product, refetch }) {
   const navigate = useNavigate();
-  const handleAddFavorite = () => {
+  const handleAddFavorite = useCallback(() => {
     if (localStorage.getItem('token')) {
-      addToFavorites(product._id);
+      addToFavorites({ itemId: product._id }).then(() => refetch?.());
     } else {
       navigate('/login');
     }
-  };
+  }, [product._id, navigate, refetch]);
+
+  const handleRemoveFavorite = useCallback(() => {
+    if (localStorage.getItem('token')) {
+      removeFromFavorites({ itemId: product._id }).then(() => refetch?.());
+    } else {
+      navigate('/login');
+    }
+  }, [product._id, navigate, refetch]);
 
   return (
     <div>
@@ -43,7 +50,15 @@ function Card({ product }) {
             padding: '6px 8px',
           }}
         >
-          <Heart size={'20px'} color='red' onClick={handleAddFavorite} />
+          {product.isFavorite ? (
+            <HeartFill
+              size={'20px'}
+              color='red'
+              onClick={handleRemoveFavorite}
+            />
+          ) : (
+            <Heart size={'20px'} color='red' onClick={handleAddFavorite} />
+          )}
         </div>
         <div className='card-body px-3 py-0'>
           <div className='row my-3'>

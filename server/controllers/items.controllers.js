@@ -51,7 +51,9 @@ const getItems = async (req, res) => {
       richItem = itemsWithReviews.map((item) => {
         return {
           ...item._doc,
-          isFavorite: !!user.favorites.find((favorite) => favorite == item._id),
+          isFavorite: !!user.favorites.find(
+            (favorite) => favorite.toString() == item._id.toString(),
+          ),
         };
       });
     }

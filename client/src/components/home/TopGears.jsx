@@ -8,10 +8,14 @@ import { getGear } from '../../api/ItemsAPI';
 function TopGears(props) {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    getGear().then((res) => {
+  const fetchGames = async () => {
+    return getGear().then((res) => {
       setProducts(res.items || []);
     });
+  };
+
+  useEffect(() => {
+    fetchGames();
   }, []);
   const responsive = {
     desktop: {
@@ -56,7 +60,7 @@ function TopGears(props) {
       >
         {products.map((product, key) => (
           <div className='col-12 my-3' key={key}>
-            <Card product={product} />
+            <Card product={product} refech={fetchGames} />
           </div>
         ))}
       </Carousel>
