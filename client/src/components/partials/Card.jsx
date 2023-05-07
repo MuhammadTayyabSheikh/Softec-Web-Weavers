@@ -8,6 +8,7 @@ import { addToFavorites } from '../../api/UsersAPI';
 import { toast } from 'react-toastify';
 
 function Card({ product }) {
+  console.log(product);
   const navigate = useNavigate();
   const handleAddFavorite = () => {
     if (localStorage.getItem('token')) {

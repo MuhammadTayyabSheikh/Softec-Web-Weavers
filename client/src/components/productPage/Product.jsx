@@ -4,30 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import { addToFavorites, removeFromFavorites } from '../../api/UsersAPI';
 
 function Product({ product, refetch }) {
-  console.log(product);
-
   const navigate = useNavigate();
   const handleAddFavorite = useCallback(() => {
     if (localStorage.getItem('token')) {
-      addToFavorites(product._id).then(() => refetch());
+      addToFavorites({ itemId: product._id }).then(() => refetch());
     } else {
       navigate('/login');
     }
   }, [product._id, navigate, refetch]);
 
-  const handleRemoveFavorite = () => {
+  const handleRemoveFavorite = useCallback(() => {
     if (localStorage.getItem('token')) {
-      removeFromFavorites(product._id).then(() => refetch());
+      removeFromFavorites({ itemId: product._id }).then(() => refetch());
     } else {
       navigate('/login');
     }
-  };
-
-  console.log(
-    'fav',
-    product?.isFavorite,
-    product?.isFavorite ? 'Remove from Favorites' : 'Add to Favorites',
-  );
+  }, [product._id, navigate, refetch]);
 
   return (
     <div className='row pt-10'>
