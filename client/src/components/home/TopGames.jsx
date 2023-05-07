@@ -4,6 +4,7 @@ import { Card } from '../partials';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { getGames } from '../../api/ItemsAPI';
+import { useNavigate } from 'react-router-dom';
 
 function TopGames(props) {
   const responsive = {
@@ -24,10 +25,13 @@ function TopGames(props) {
     },
   };
 
+  const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
 
   const fetchGames = async () => {
     return getGames().then((res) => {
+      console.log(res)
       setProducts(res.items || []);
     });
   };
@@ -44,7 +48,9 @@ function TopGames(props) {
           <p className='h5'>Explore All Top Games</p>
         </div>
         <div className='col-12 col-md-4 col-lg-3 d-none d-md-block'>
-          <button className='btn btn-lg background-secondary rounded-pill px-5 py-2 text-white'>
+          <button className='btn btn-lg background-secondary rounded-pill px-5 py-2 text-white'
+            onClick={() => navigate('/browse', { state: { type: 'VideoGames' } })}
+          >
             View All{' '}
           </button>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Search(props) {
+function Search({ titleSearch, setTitleSearch }) {
     return (
         <>
         <div className="col-12 col-lg-3"></div>
@@ -11,6 +11,8 @@ function Search(props) {
               type="text"
               className="form-control form-control-lg background-gray rounded-border paraColor formInput"
               placeholder='Search'
+              value={titleSearch}
+              onChange={(e) => setTitleSearch(e.target.value)}
             />
           </div>
         </div>
@@ -21,6 +23,8 @@ function Search(props) {
               type="text"
               className="form-control form-control-lg background-gray rounded-border paraColor formInput"
               placeholder='Search'
+              value={titleSearch}
+              onChange={(e) => setTitleSearch(e.target.value)}
             />
           </div>
         </div>

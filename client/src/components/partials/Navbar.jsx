@@ -11,7 +11,7 @@ import { user as userImg } from '../../assets';
 
 function Navbar(props) {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [image, setImage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoggedIn(isLoggedIn());
@@ -20,7 +20,7 @@ function Navbar(props) {
   window.addEventListener('storage', () => {
     setLoggedIn(isLoggedIn());
   });
-  
+
   const [pic, setPic] = useState('');
   useEffect(() => {
     if (loggedIn) {
@@ -114,12 +114,17 @@ function Navbar(props) {
                 aria-labelledby='dropdownMenuButton'
                 style={{ backgroundColor: '#00222b' }}
               >
-                <Link className='dropdown-item nav-link text-white' to='#'>
+                <button
+                  className='dropdown-item nav-link text-white'
+                  onClick={() => navigate('/browse', { state: { type: 'GamingGear' } })}
+                >
                   Gaming Gears
-                </Link>
-                <Link className='dropdown-item nav-link text-white' to='#'>
+                </button>
+                <button className='dropdown-item nav-link text-white'
+                  onClick={() => navigate('/browse', { state: { type: 'VideoGames' } })}
+                >
                   Video Games
-                </Link>
+                </button>
               </div>
             </div>
             {navLinks.map((link, id) => (

@@ -4,6 +4,7 @@ import { Card } from '../partials';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { getGear } from '../../api/ItemsAPI';
+import { useNavigate } from 'react-router-dom';
 
 function TopGears(props) {
   const [products, setProducts] = useState([]);
@@ -35,6 +36,8 @@ function TopGears(props) {
     },
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className='text-white mt-10'>
       <div className='row'>
@@ -43,7 +46,9 @@ function TopGears(props) {
           <p className='h5'>Explore All Gaming Gear</p>
         </div>
         <div className='col-12 col-md-4 col-lg-3 d-none d-md-block'>
-          <button className='btn btn-lg background-secondary rounded-pill px-5 py-2 text-white'>
+          <button className='btn btn-lg background-secondary rounded-pill px-5 py-2 text-white'
+            onClick={() => navigate('/browse', { state: { type: 'GamingGear' } })}
+          >
             View All{' '}
           </button>
         </div>

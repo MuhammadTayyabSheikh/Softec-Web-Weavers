@@ -76,7 +76,7 @@ function Cart({ items, fetchCartItem }) {
             <StripeCheckout
               name='Game Hub'
               description={`Payment of PKR 2000`}
-              amount={2000} // Stripe expects amount in cents
+              amount={total * 100} // Stripe expects amount in cents
               currency='PKR'
               stripeKey={import.meta.env.VITE_STRIPE_KEY}
               token={handleToken}

@@ -1,21 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Filters, Results, Search } from '../components/marketplace';
+import { useLocation } from 'react-router-dom';
 
 function Marketplace(props) {
   const [price, setPrice] = useState({
-    min: 0,
+    min: 1,
     max: 100000,
   });
 
   const [categories, setCategories] = useState([]);
   const [titleSearch, setTitleSearch] = useState('');
+  const [type, setType] = useState('VideoGames')
+  const location = useLocation();
+
+  // take type state out of useLocation state in useEfect
+  useEffect(() => {
+    if (
+      location.state &&
+      location.state.type
+    ) {
+      setType(location.state.type)
+    }
+  }, [location.state]);
 
   return (
     <div className='px-5 background-dark pb-10 pt-5'>
       <div className='row'>
-        <Search />
+        <Search titleSearch={titleSearch} setTitleSearch={setTitleSearch} />
         <Filters price={price} setPrice={setPrice} categories={categories} setCategories={setCategories} />
-        <Results />
+        <Results
+          titleSearch={titleSearch}
+          price={price}
+          categories={categories}
+          type={type}
+        />
       </div>
     </div>
   );

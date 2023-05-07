@@ -15,6 +15,8 @@ const register = async ({ name, email, password, dob, gender }) => {
     .then((res) => {
       console.log(res.data);
       localStorage.setItem('token', res.data.token);
+      window.location.href = '/';
+
     });
 };
 

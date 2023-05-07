@@ -8,10 +8,10 @@ function TopCategories(props) {
         <div className="col-12 col-md-8 col-lg-9">
           <h1 className="font-clash text-48">Top Games Categories</h1>
         </div>
-      
+
       </div>
       <div className="row mt-5">
-        {topCategories.slice(0,6).map((category,key) => (
+        {topCategories.slice(0, 6).map((category, key) => (
           <div className="col-6 col-lg-3 my-2 px-2 px-md-5" key={key}>
             <div className="background-gray p-2 rounded-border text-center pulse">
               <div
@@ -30,19 +30,19 @@ function TopCategories(props) {
             </div>
           </div>
         ))}
-       
+
       </div>
 
-{/* Top Gear */}
+      {/* Top Gear */}
 
       <div className="row mt-5">
         <div className="col-12 col-md-8 col-lg-9">
           <h1 className="font-clash text-48">Top Gaming Gear Categories</h1>
         </div>
-      
+
       </div>
       <div className="row mt-5">
-        {topCategories.slice(6,12).map((category,key) => (
+        {topCategories.slice(6, 12).map((category, key) => (
           <div className="col-6 col-lg-3 my-2 px-2 px-md-5" key={key}>
             <div className="background-gray p-2 rounded-border text-center pulse">
               <div
@@ -61,7 +61,7 @@ function TopCategories(props) {
             </div>
           </div>
         ))}
-      
+
       </div>
     </div>
   );

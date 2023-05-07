@@ -1,14 +1,13 @@
 import React from 'react';
 import { topCategories } from '../../constants';
 
-function Filters({ price, setPrice, categories, setCategories }) {
+function Filters({ price, categories, setPrice, setCategories }) {
   return (
     <>
       <div
         className='col-3 paraColor filters rounded-border px-3 py-5 h-100 sticky-lg-top d-none d-lg-block'
         style={{ top: '80px' }}
       >
-
         <p className='h4 font-clash text-white'>Price</p>
         <div className='row ml-3'>
           <div className='col-6'>
@@ -18,6 +17,8 @@ function Filters({ price, setPrice, categories, setCategories }) {
               type='number'
               className='form-control background-gray rounded-border paraColor formInput'
               placeholder='Min'
+              value={price.min}
+              onChange={(e) => setPrice({ ...price, min: Number(e.target.value) })}
             />
           </div>
           <div className='col-6'>
@@ -25,15 +26,19 @@ function Filters({ price, setPrice, categories, setCategories }) {
             <input
               id='maxPrice'
               type='number'
+              value={price.max}
               className='form-control background-gray rounded-border paraColor formInput'
               placeholder='Max'
+              onChange={(e) => setPrice(
+                { ...price, max: Number(e.target.value) }
+              )}
             />
           </div>
-          <div className='col-12'>
+          {/* <div className='col-12'>
             <button className='btn background-secondary rounded-pill px-5 py-2 text-white w-100 mt-3'>
               Apply
             </button>
-          </div>
+          </div> */}
         </div>
         <hr className='background-gray' />
         <p className='h4 font-clash text-white'>Category</p>
@@ -45,6 +50,14 @@ function Filters({ price, setPrice, categories, setCategories }) {
                 type='checkbox'
                 name='flexRadioDefault'
                 id={cat.title}
+                onChange={(e) =>
+                  setCategories(
+                    e.target.checked
+                      ? [...categories, cat.title]
+                      : categories.filter((c) => c !== cat.title)
+
+                  )
+                }
               />
               <label className='form-check-label' htmlFor={cat.title}>
                 {cat.title}

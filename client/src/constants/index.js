@@ -192,61 +192,41 @@ export const topCategories = [
   {
     bg: img1,
     icon: Basketball,
-    title: "Sports",
+    title: "sports",
   },
   {
     bg: img4,
     icon: brush,
-    title: "Art",
+    title: "art",
   },
   {
     bg: img3,
     icon: Camera,
-    title: "Photography",
+    title: "photography",
   },
   {
     bg: img4,
     icon: Music,
-    title: "Music",
+    title: "pusic",
   },
   {
     bg: img5,
     icon: Planet,
-    title: "Virtual Worlds",
+    title: "action",
   },
   {
     bg: img1,
     icon: Swatches,
-    title: "Collectibles",
+    title: "collectibles",
   },
   {
     bg: img4,
     icon: Video,
-    title: "Video",
+    title: "adventure",
   },
   {
     bg: img3,
     icon: Wand,
-    title: "Utility",
-  },
-  {
-    bg: img5,
-    icon: Planet,
-    title: "Virtual Worlds",
-  },
-  {
-    bg: img1,
-    icon: Swatches,
-    title: "Collectibles",
-  },
-  {
-    bg: img4,
-    icon: Video,
-    title: "Video",
-  },
-  {
-    bg: img3,
-    icon: Wand,
-    title: "Utility",
+    title: "multiplayer",
   },
 ];
