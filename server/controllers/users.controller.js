@@ -103,15 +103,15 @@ const addToFavorites = async (req, res) => {
 const removeFromFavorites = async (req, res) => {
   try {
     const { id } = req.user;
-    const { itemId } = req.query;
+    const { itemId } = req.params;
 
     const user = await User.findById(id);
 
-    if (!user.favorites.includes(itemId)) {
+    if (!user.favorites.find((item) => item == itemId)) {
       return res.status(400).json({ message: 'Item not in favorites' });
     }
 
-    user.favorites = user.favorites.filter((item) => item !== itemId);
+    user.favorites = user.favorites.filter((item) => item != itemId);
 
     await user.save();
 
@@ -169,7 +169,7 @@ const addToCart = async (req, res) => {
 const removeFromCart = async (req, res) => {
   try {
     const { id } = req.user;
-    const { itemId } = req.query;
+    const { itemId } = req.params;
 
     const user = await User.findById(id);
 
@@ -177,7 +177,7 @@ const removeFromCart = async (req, res) => {
       return res.status(400).json({ message: 'Item not in cart' });
     }
 
-    user.cart = user.cart.filter((item) => item.item !== itemId);
+    user.cart = user.cart.filter((item) => item.item != itemId);
 
     await user.save();
 

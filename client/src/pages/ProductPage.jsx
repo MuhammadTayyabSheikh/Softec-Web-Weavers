@@ -22,7 +22,16 @@ function ProductPage(props) {
     fetchProduct().finally(() => setLoading(false));
   }, [fetchProduct]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+        }}
+      >
+        Loading...
+      </div>
+    );
 
   return (
     <>

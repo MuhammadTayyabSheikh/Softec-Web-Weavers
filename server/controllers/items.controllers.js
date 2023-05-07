@@ -45,7 +45,18 @@ const getItems = async (req, res) => {
       }),
     );
 
-    res.status(200).json({ items: itemsWithReviews });
+    let richItem = { ...itemsWithReviews };
+    if (req.user) {
+      const user = await User.findById(req.user.id).select('favorites').exec();
+      richItem = itemsWithReviews.map((item) => {
+        return {
+          ...item,
+          isFavorite: !!user.favorites.find((favorite) => favorite == item._id),
+        };
+      });
+    }
+
+    res.status(200).json({ items: richItem });
   } catch (error) {
     console.log('items/getItems error: ', error);
     res.status(500).json({ message: error.message });
@@ -69,8 +80,7 @@ const getItem = async (req, res) => {
     let isFavorite = false;
     if (req.user) {
       const user = await User.findById(req.user.id).select('favorites').exec();
-      console.log('user: ', user);
-      isFavorite = user.favorites.includes(item._id);
+      isFavorite = !!user.favorites.find((item) => item == id);
     }
 
     res.status(200).json({
