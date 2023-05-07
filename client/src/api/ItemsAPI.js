@@ -3,14 +3,18 @@ import axios from './axios.config';
 
 const getGames = () => {
   return axios.get('/items/VideoGame').then((res) => {
-    console.log(res.data);
     return res.data;
   });
 };
 
 const getGear = () => {
   return axios.get('/items/GamingGear').then((res) => {
-    console.log(res.data);
+    return res.data;
+  });
+};
+
+const getItem = (id) => {
+  return axios.get(`/items/getOne/${id}`).then((res) => {
     return res.data;
   });
 };
@@ -50,4 +54,4 @@ const createItem = async ({
   }
 };
 
-export { getGames, getGear, createItem };
+export { getGames, getGear, createItem, getItem };

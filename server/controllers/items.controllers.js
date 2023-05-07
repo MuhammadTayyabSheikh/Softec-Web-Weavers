@@ -1,6 +1,7 @@
 const InventoryType = require('../constants/InventoryType');
 const Item = require('../models/Item');
 const Review = require('../models/Review');
+const User = require('../models/User');
 const removeFiles = require('../utils/removeFiles');
 const uploadFiles = require('../utils/uploadFiles');
 
@@ -55,7 +56,7 @@ const getItem = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const item = Item.findById(id);
+    const item = await Item.findById(id);
 
     if (!item) {
       return res.status(404).json({ message: 'Item not found' });
@@ -65,7 +66,19 @@ const getItem = async (req, res) => {
 
     item.reviews = reviews;
 
-    res.status(200).json({ item });
+    let isFavorite = false;
+    if (req.user) {
+      const user = await User.findById(req.user.id).select('favorites').exec();
+      console.log('user: ', user);
+      isFavorite = user.favorites.includes(item._id);
+    }
+
+    res.status(200).json({
+      item: {
+        ...item._doc,
+        isFavorite,
+      },
+    });
   } catch (error) {
     console.log('items/getItem error: ', error);
     res.status(500).json({ message: error.message });

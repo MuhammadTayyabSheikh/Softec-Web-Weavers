@@ -4,7 +4,7 @@ const itemControllers = require('../controllers/items.controllers');
 
 router.get('/:type', itemControllers.getItems);
 
-router.get('/:id', itemControllers.getItem);
+router.get('/getOne/:id', itemControllers.getItem);
 
 router.post('/:type', authorize('admin'), itemControllers.createItem);
 

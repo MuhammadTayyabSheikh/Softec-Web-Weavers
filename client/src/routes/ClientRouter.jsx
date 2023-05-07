@@ -22,13 +22,11 @@ const ClientRouter = () => {
         <Route path='sign-up' element={<SignUp />} />
         <Route path='login' element={<Login />} />
         <Route path='/favorites' element={<FavoritesPage />} />
-        <Route path='/product' element={<ProductPage />} />
+        <Route path='/product/:id' element={<ProductPage />} />
         <Route path='/cart' element={<CartPage />} />
         <Route path='/browse' element={<Marketplace />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/orders' element={<Orders />} />
-
-        
       </Routes>
       <Footer />
     </>
