@@ -17,17 +17,21 @@ function Navbar(props) {
     setLoggedIn(isLoggedIn());
   }, []);
 
-  useEffect(() => {
-    getMe().then((res) => {
-      setImage(res.user.profilePicture);
-    }
-    );
-  }, []);
+  window.addEventListener('storage', () => {
+    setLoggedIn(isLoggedIn());
+  });
   
   useEffect(() => {
     if (loggedIn) {
-      getCart().then((res) => {
-        console.log(res, 'cart+++++++++++++++++++++++++++');
+      getCart().then((res) => {});
+    }
+  }, [loggedIn]);
+
+  const [pic, setPic] = useState('');
+  useEffect(() => {
+    if (loggedIn) {
+      getMe().then((res) => {
+        setPic(res.user.profilePicture);
       });
     }
   }, [loggedIn]);
@@ -47,7 +51,7 @@ function Navbar(props) {
               aria-expanded='false'
             >
               <img
-                src={`${image}`}
+                src={pic}
                 alt=''
                 width={'40px'}
                 height={'40px'}
@@ -151,7 +155,7 @@ function Navbar(props) {
                     aria-expanded='false'
                   >
                     <img
-                      src={`${image}`}
+                      src={pic}
                       alt=''
                       width={'40px'}
                       height={'40px'}
