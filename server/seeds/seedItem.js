@@ -151,7 +151,7 @@ const seedItem = async () => {
         description:
           'A 3D platform game developed and published by Nintendo for the Nintendo Switch.',
         image:
-          'https://trinity-core.s3.us-west-1.amazonaws.com/techjury/4585/Razer-Kraken-Ultimate-Headset.png',
+          'https://www.stuff.tv/wp-content/uploads/sites/2/2022/02/Stuff-Horizon-Forbidden-West-1.png',
         marketPrice: 59.99,
         costPrice: 25,
         type: 'VideoGame',
@@ -165,7 +165,7 @@ const seedItem = async () => {
         description:
           'An action-adventure game developed by Naughty Dog and published by Sony Interactive Entertainment for the PlayStation 4.',
         image:
-          'https://trinity-core.s3.us-west-1.amazonaws.com/techjury/4587/Razer-Seiren-X-Microphone.png',
+          'https://www.stuff.tv/wp-content/uploads/sites/2/2021/06/rc_riftapart_who_ps5-scaled_1.jpg',
         marketPrice: 59.99,
         costPrice: 40,
         type: 'VideoGame',
@@ -179,7 +179,7 @@ const seedItem = async () => {
         description:
           'An action-adventure game developed and published by Nintendo for the Nintendo Switch and Wii U consoles.',
         image:
-          'https://trinity-core.s3.us-west-1.amazonaws.com/techjury/4590/SteelSeries-QcK-Prism-RGB-Gaming-Surface.png',
+          'https://upload.wikimedia.org/wikipedia/en/a/a9/MarioNSMBUDeluxe.png',
         marketPrice: 59.99,
         costPrice: 30,
         type: 'VideoGame',
@@ -193,7 +193,7 @@ const seedItem = async () => {
         description:
           'A Western action-adventure game developed and published by Rockstar Games for the PlayStation 4, Xbox One, and PC.',
         image:
-          'https://trinity-core.s3.us-west-1.amazonaws.com/techjury/4591/Secretlab-Titan2.jpg',
+          'https://play-lh.googleusercontent.com/bVJdXNp1sOW-ZvsEmaabQO3-2VeXNYEjLUtm8Gc8er7ZUM-J8w_snvWQv30AFAgrNUk',
         marketPrice: 59.99,
         costPrice: 35,
         type: 'VideoGame',
