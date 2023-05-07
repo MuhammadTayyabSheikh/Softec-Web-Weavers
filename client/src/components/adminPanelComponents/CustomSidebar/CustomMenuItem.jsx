@@ -1,6 +1,6 @@
-import React from 'react'
-import { MenuItem } from 'react-pro-sidebar'
-import { useNavigate } from 'react-router'
+import React from 'react';
+import { MenuItem } from 'react-pro-sidebar';
+import { useNavigate } from 'react-router';
 
 const CustomMenuItem = ({ label, icon, route = null }) => {
   const navigate = useNavigate();
@@ -14,13 +14,16 @@ const CustomMenuItem = ({ label, icon, route = null }) => {
         borderBottom: '1px solid #004556',
         '&:hover': {
           backgroundColor: '#002b36',
-        }
+        },
       }}
-      onClick={() =>{ route ? navigate(route) : console.log('cnrejkslfjc')}}
+      onClick={(e) => {
+        e.preventDefault();
+        route ? navigate(route) : console.log('cnrejkslfjc');
+      }}
     >
       {label}
     </MenuItem>
-  )
-}
+  );
+};
 
-export default CustomMenuItem
+export default CustomMenuItem;

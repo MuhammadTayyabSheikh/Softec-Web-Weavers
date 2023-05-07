@@ -1,85 +1,104 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '../../components/adminPanelComponents/Table';
 import TableDataImage from '../../components/adminPanelComponents/Table/TableDataImage';
-import {AiFillEdit} from 'react-icons/ai';
+import { getGear } from '../../api/ItemsAPI';
+import { AiFillEdit, AiOutlineLoading } from 'react-icons/ai';
 
-function GearInventory(props) {
+function VideogearsInventory(props) {
+  const [previewUrl, setPreviewUrl] = useState(null);
 
-    const [previewUrl, setPreviewUrl] = useState(null);
-    const [image, setImage] = useState("");
+  const [gears, setGears] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [modalData, setModalData] = useState({
+    title: '',
+    description: '',
+    marketPrice: '',
+    costPrice: '',
+    type: '',
+    stock: '',
+    minAge: '',
+    image: '',
+  });
+
+  useEffect(() => {
+    setLoading(true);
+    getGear()
+      .then((res) => {
+        setGears(res.items);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className='d-flex flex-column w-100'>
       <div className='d-flex justify-content-between align-items-center m-3'>
         <h1 className='font-clash'>Gaming Gear Inventory</h1>
-        
       </div>
-      <Table>
-        <thead>
-          <tr className=''>
-            <th scope='col'>Image</th>
-            <th scope='col'>Title</th>
-            <th scope='col'>Description</th>
-            <th scope='col'>Market Price</th>
-            <th scope='col'>Cost Price</th>
-            <th scope='col'>Type</th>
-            <th scope='col'>Stock</th>
-            <th scope='col'>Minimum Age</th>
-            <th scope='col'>Actions</th>
-          </tr>
-        </thead>
-        <tbody className=''>
-          <tr>
-            <TableDataImage />
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <AiFillEdit
-                  type='button'
-                  data-toggle='modal'
-                  data-target='#exampleModal'
-                />
-          </tr>
-          <tr>
-            <TableDataImage />
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <TableDataImage />
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </Table>
+      {loading ? (
+        <AiOutlineLoading />
+      ) : (
+        <Table>
+          <thead>
+            <tr className=''>
+              <th scope='col'>Image</th>
+              <th scope='col'>Title</th>
+              <th scope='col'>Market Price</th>
+              <th scope='col'>Cost Price</th>
+              <th scope='col'>Type</th>
+              <th scope='col'>Stock</th>
+              <th scope='col'>Minimum Age</th>
+              <th scope='col'>Actions</th>
+            </tr>
+          </thead>
+          <tbody className=''>
+            {gears.map((gear, key) => (
+              <tr key={key}>
+                <TableDataImage src={gear.image} />
+                <td>{gear.title}</td>
+                <td>{gear.marketPrice}</td>
+                <td>{gear.costPrice}</td>
+                <td> {gear.type}</td>
+                <td> {gear.stock}</td>
+                <td> {gear.minAge}</td>
+                <td>
+                  <AiFillEdit
+                    type='button'
+                    data-toggle='modal'
+                    data-target='#exampleModal11'
+                    onClick={() => {
+                      setModalData({
+                        title: gear.title,
+                        description: gear.description,
+                        marketPrice: gear.marketPrice,
+                        costPrice: gear.costPrice,
+                        type: gear.type,
+                        stock: gear.stock,
+                        minAge: gear.minAge,
+                        image: gear.image,
+                      });
+                    }}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
 
-           {/* Modal */}
-           <div
+      {/* Modal */}
+      <div
         className='modal fade'
-        id='exampleModal'
+        id='exampleModal11'
         tabIndex='-1'
         role='dialog'
-        aria-labelledby='exampleModalLabel'
+        aria-labelledby='exampleModal11Label'
         aria-hidden='true'
       >
         <div className='modal-dialog' role='document'>
           <div className='modal-content'>
             <div className='modal-header'>
-              <h5 className='modal-title' id='exampleModalLabel'>
+              <h5 className='modal-title' id='exampleModal11Label'>
                 Add Inventory
               </h5>
               <button
@@ -95,13 +114,11 @@ function GearInventory(props) {
               <form>
                 <div className='row'>
                   <div className='col-6'>
-                    {previewUrl && (
-                      <img
-                        src={previewUrl}
-                        alt='Preview'
-                        style={{ height: '150px', width: '150px' }}
-                      />
-                    )}
+                    <img
+                      src={previewUrl || modalData.image}
+                      alt='Preview'
+                      style={{ height: '150px', width: '150px' }}
+                    />
                   </div>
                   <div className='col-6'>
                     <div className='form-group'>
@@ -112,7 +129,10 @@ function GearInventory(props) {
                         id='image'
                         onChange={(event) => {
                           const file = event.target.files[0];
-                          setImage(file);
+                          setModalData({
+                            ...modalData,
+                            image: file,
+                          });
                           setPreviewUrl(URL.createObjectURL(file));
                         }}
                       />
@@ -121,8 +141,18 @@ function GearInventory(props) {
                 </div>
                 <div className='form-group'>
                   <label htmlFor='type'>Type</label>
-                  <select className='form-control' id='type'>
-                    <option value={'VideoGame'}>Video Game</option>
+                  <select
+                    className='form-control'
+                    id='type'
+                    onChange={(event) => {
+                      setModalData({
+                        ...modalData,
+                        type: event.target.value,
+                      });
+                    }}
+                    value={modalData.type}
+                  >
+                    <option value={'Videogear'}>Video gear</option>
                     <option value={'GamingGear'}>Gaming Gear</option>
                   </select>
                 </div>
@@ -136,6 +166,13 @@ function GearInventory(props) {
                     rows={'3'}
                     className='form-control'
                     id='description'
+                    value={modalData.description}
+                    onChange={(event) => {
+                      setModalData({
+                        ...modalData,
+                        description: event.target.value,
+                      });
+                    }}
                   />
                 </div>
                 <div className='row'>
@@ -146,6 +183,13 @@ function GearInventory(props) {
                         type='number'
                         className='form-control'
                         id='marketPrice'
+                        onChange={(event) => {
+                          setModalData({
+                            ...modalData,
+                            marketPrice: event.target.value,
+                          });
+                        }}
+                        value={modalData.marketPrice}
                       />
                     </div>
                   </div>
@@ -156,6 +200,13 @@ function GearInventory(props) {
                         type='number'
                         className='form-control'
                         id='costPrice'
+                        onChange={(event) => {
+                          setModalData({
+                            ...modalData,
+                            costPrice: event.target.value,
+                          });
+                        }}
+                        value={modalData.costPrice}
                       />
                     </div>
                   </div>
@@ -168,6 +219,13 @@ function GearInventory(props) {
                         type='number'
                         className='form-control'
                         id='stock'
+                        onChange={(event) => {
+                          setModalData({
+                            ...modalData,
+                            stock: event.target.value,
+                          });
+                        }}
+                        value={modalData.stock}
                       />
                     </div>
                   </div>
@@ -178,6 +236,13 @@ function GearInventory(props) {
                         type='number'
                         className='form-control'
                         id='minAge'
+                        onChange={(event) => {
+                          setModalData({
+                            ...modalData,
+                            minAge: event.target.value,
+                          });
+                        }}
+                        value={modalData.minAge}
                       />
                     </div>
                   </div>
@@ -203,4 +268,4 @@ function GearInventory(props) {
   );
 }
 
-export default GearInventory;
+export default VideogearsInventory;
