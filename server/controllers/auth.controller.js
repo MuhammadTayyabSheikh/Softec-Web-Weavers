@@ -31,6 +31,7 @@ const register = async (req, res) => {
         gender: user.gender,
         isBlacklisted: user.isBlacklisted,
         blacklistReason: user.blacklistReason,
+        role: user.isAdmin ? 'admin' : 'user',
       },
       message: 'Registered successfully!',
     });
@@ -73,6 +74,7 @@ const login = async (req, res) => {
         gender: user.gender,
         isBlacklisted: user.isBlacklisted,
         blacklistReason: user.blacklistReason,
+        role: user.isAdmin ? 'admin' : 'user',
       },
       message: '',
     });
