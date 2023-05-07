@@ -38,7 +38,7 @@ instance.interceptors.response.use(
     // }
 
     if (error.response?.data?.length > 0) {
-      error.response?.data.forEach((message) => toast.error(message));
+      error?.response?.data.forEach((message) => toast.error(message));
     } else if (error.response?.data?.message) {
       toast.error(error.response.data.message);
     } else if (error.message) {

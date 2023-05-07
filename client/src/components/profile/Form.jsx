@@ -3,7 +3,6 @@ import { user, logo } from "../../assets";
 import { Pencil } from "react-bootstrap-icons";
 import { getMe, updateMe } from "../../api/UsersAPI";
 
-
 function Form(props) {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
@@ -19,7 +18,6 @@ function Form(props) {
 
   useEffect(() => {
     getMe().then((res) => {
-      console.log(res.user, '*************');
       setId(res.user.id);
       setName(res.user.name);
       setEmail(res.user.email);
@@ -116,7 +114,7 @@ function Form(props) {
                 max="100000000"
                 onChange={(e) => handlePicChange(e)}
               />
-              <label for="pic">
+              <label htmlFor="pic">
                 <Pencil
                   color="white"
                   className="pointer background-gray p-2"
@@ -135,7 +133,7 @@ function Form(props) {
       </div>
       <div className="col-lg-9">
         <div className="form-group">
-          <label for="name" className="font-clash text-white">
+          <label htmlFor="name" className="font-clash text-white">
             Display Name
           </label>
           <input
@@ -148,7 +146,7 @@ function Form(props) {
           />
         </div>
         <div className="form-group">
-          <label for="email" className="font-clash text-white">
+          <label htmlFor="email" className="font-clash text-white">
             Email
           </label>
           <input
@@ -161,7 +159,7 @@ function Form(props) {
           />
         </div>
         <div className="form-group">
-          <label for="bio" className="font-clash text-white">
+          <label htmlFor="bio" className="font-clash text-white">
             Bio
           </label>
           <textarea

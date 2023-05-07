@@ -3,6 +3,7 @@ import { topNFTs, cardData } from "../../constants";
 import { crypto } from "../../assets";
 import { Cart, CartFill, Heart, HeartFill } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../../api/UsersAPI";
 
 function Card({ product }) {
   return (
@@ -46,9 +47,12 @@ function Card({ product }) {
                 size={"20px"}
                 className="pointer"
                 color='#b58900'
+                onClick={() => {
+                  console.log(product._id)
+                  addToCart({itemId: product._id});
+                }}
               />
             </div>
-
             <p className="two-lines m-0" style={{ maxHeight: '60px' }} >
               {product.description}
             </p>

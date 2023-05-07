@@ -5,17 +5,25 @@ import { logo, user } from '../../assets';
 import { navLinks } from '../../constants';
 import { CartFill, ChevronDown, Heart, HeartFill } from 'react-bootstrap-icons';
 import { isLoggedIn, logout } from '../../api/AuthAPI';
-import { getCart } from '../../api/UsersAPI';
+import { getCart, getMe } from '../../api/UsersAPI';
 // import { navLinks } from "../../Constants";
 import { user as userImg } from '../../assets';
 
 function Navbar(props) {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     setLoggedIn(isLoggedIn());
   }, []);
 
+  useEffect(() => {
+    getMe().then((res) => {
+      setImage(res.user.profilePicture);
+    }
+    );
+  }, []);
+  
   useEffect(() => {
     if (loggedIn) {
       getCart().then((res) => {
@@ -39,7 +47,7 @@ function Navbar(props) {
               aria-expanded='false'
             >
               <img
-                src={`${Base_URL}uploads/users/${pic}`}
+                src={`${image}`}
                 alt=''
                 width={'40px'}
                 height={'40px'}
@@ -143,7 +151,7 @@ function Navbar(props) {
                     aria-expanded='false'
                   >
                     <img
-                      src={`${Base_URL}uploads/users/${pic}`}
+                      src={`${image}`}
                       alt=''
                       width={'40px'}
                       height={'40px'}

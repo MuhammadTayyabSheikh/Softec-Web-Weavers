@@ -37,7 +37,7 @@ const getCart = async () => {
 };
 
 const addToCart = async ({ itemId }) => {
-  return axios.post('/users/cart', { itemId }).then((res) => res.data);
+  return axios.put('/users/cart', { itemId }).then((res) => res.data);
 };
 
 const removeFromCart = async ({ itemId }) => {
