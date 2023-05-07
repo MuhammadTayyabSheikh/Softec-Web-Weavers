@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 import Table from '../../components/adminPanelComponents/Table';
 import TableDataImage from '../../components/adminPanelComponents/Table/TableDataImage';
+import { BiBlock } from 'react-icons/bi';
 
 const OrdersPage = () => {
   console.log('OrdersPage');
@@ -18,6 +19,9 @@ const OrdersPage = () => {
             <th scope='col'>Type</th>
             <th scope='col'>Stock</th>
             <th scope='col'>Minimum Age</th>
+            <th scope='col' colSpan={'2'}>
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody className=''>
@@ -30,6 +34,13 @@ const OrdersPage = () => {
             <td>@mdo</td>
             <td>@mdo</td>
             <td>@mdo</td>
+            <td>
+              <button className='btn btn-success'>Complete Order</button>
+            </td>
+            <td>
+              <button className='btn btn-danger'><BiBlock className='mr-2'/>Blacklist User</button>
+            </td>
+   \
           </tr>
           <tr>
             <TableDataImage />
@@ -54,7 +65,7 @@ const OrdersPage = () => {
         </tbody>
       </Table>
     </div>
-  )
-}
+  );
+};
 
-export default OrdersPage
+export default OrdersPage;
