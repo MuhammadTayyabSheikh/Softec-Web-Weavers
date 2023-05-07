@@ -5,7 +5,9 @@ import { logo, user } from '../../assets';
 import { navLinks } from '../../constants';
 import { CartFill, ChevronDown, Heart, HeartFill } from 'react-bootstrap-icons';
 import { isLoggedIn, logout } from '../../api/AuthAPI';
+import { getCart } from '../../api/UsersAPI';
 // import { navLinks } from "../../Constants";
+import { user as userImg } from '../../assets';
 
 function Navbar(props) {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -14,10 +16,21 @@ function Navbar(props) {
     setLoggedIn(isLoggedIn());
   }, []);
 
+  useEffect(() => {
+    if (loggedIn) {
+      getCart().then((res) => {
+        console.log(res, 'cart+++++++++++++++++++++++++++');
+      });
+    }
+  }, [loggedIn])
+
+
+
   return (
     <div className='sticky-top w-100 mx-auto'>
       <nav className='py-3 navbar navbar-expand-lg navbar-light background-dark paddingX'>
-        {/* <div className="dropdown d-inline mr-4 d-lg-none">
+        {loggedIn &&
+          <div className="dropdown d-inline mr-4 d-lg-none">
             <Link
               className="dropdown-toggle"
               to="#"
@@ -45,12 +58,12 @@ function Navbar(props) {
               </Link>
               <button
                 className="dropdown-item btn btn-sm background-secondary rounded-pill py-2 px-4"
-                
+                onClick={logout}
               >
                 Logout
               </button>
             </div>
-          </div> */}
+          </div>}
 
         <Link to={'/'}>
           <img
@@ -118,7 +131,8 @@ function Navbar(props) {
               </li>
             ))}
 
-            {/* <li className="nav-item d-none d-lg-block">
+            {loggedIn &&
+              <li className="nav-item d-none d-lg-block">
                 <div className="dropdown">
                   <Link
                     className="dropdown-toggle"
@@ -130,7 +144,7 @@ function Navbar(props) {
                     aria-expanded="false"
                   >
                     <img
-                      src={``}
+                      src={`${userImg}`}
                       alt=""
                       width={"40px"}
                       height={"40px"}
@@ -146,17 +160,17 @@ function Navbar(props) {
                       My Profile
                     </Link>
                     <Link className="dropdown-item" to="#">
-                      My NFTS
+                      My Orders
                     </Link>
                     <button
                       className="dropdown-item btn btn-sm background-secondary rounded-pill py-2 px-4"
-                      
+                      onClick={logout}
                     >
                       Logout
                     </button>
                   </div>
                 </div>
-              </li> */}
+              </li>}
 
             <>
               {/* <Link to={"/sign-up"}>
@@ -164,12 +178,7 @@ function Navbar(props) {
                     Sign Up
                   </button>
                 </Link> */}
-              {loggedIn ? <button className='btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0'
-                onClick={logout}
-              >
-                Logout
-              </button>
-                :
+              {!loggedIn &&
                 <Link to={'/login'}>
                   <button className='btn btn-sm background-secondary rounded-pill px-4 py-2 text-white mx-3 my-2 my-lg-0'
                   >

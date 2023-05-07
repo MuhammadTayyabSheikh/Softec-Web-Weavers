@@ -8,6 +8,7 @@ import {
   Login,
   Marketplace,
   ProductPage,
+  Profile,
   SignUp,
 } from '../pages';
 
@@ -23,6 +24,9 @@ const ClientRouter = () => {
         <Route path='/product' element={<ProductPage />} />
         <Route path='/cart' element={<CartPage />} />
         <Route path='/browse' element={<Marketplace />} />
+        <Route path='/profile' element={<Profile />} />
+
+        
       </Routes>
       <Footer />
     </>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Hero, Sidebar } from "../Components/Profile/index";
+import { Form, Sidebar } from "../Components/Profile/index";
 
 function Profile(props) {
   return (

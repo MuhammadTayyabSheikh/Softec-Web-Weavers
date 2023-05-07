@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { user } from "../../assets";
+import { user, logo } from "../../assets";
 import { Pencil } from "react-bootstrap-icons";
+import { getMe } from "../../api/UsersAPI";
+
 
 function Form(props) {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [pic, setPic] = useState("");
+  const [image, setImage] = useState("");
   const [banner, setBanner] = useState("");
   const [bio, setBio] = useState("");
   const [showPicEditButton, setShowPicEditButton] = useState(false);
@@ -15,11 +17,22 @@ function Form(props) {
   const [picPreview, setPicPreview] = useState(null);
   const [bannerPreview, setBannerPreview] = useState(null);
 
+  useEffect(() => {
+    getMe().then((res) => {
+      setId(res.data._id);
+      setName(res.data.name);
+      setEmail(res.data.email);
+      setImage(res.data.image);
+    }
+    );
+  }, []);
+
+
   function handlePicChange(e) {
     const file = e.target.files[0];
 
     if (file) {
-      setPic(e.target.files[0]);
+      setImage(e.target.files[0]);
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -48,80 +61,19 @@ function Form(props) {
     }
   }
 
-  const handleUpdate = () => {
-    userService
-      .updateProfile(id, {
-        name,
-        email,
-        pic,
-        banner,
-        bio,
-      })
-      .then((res) => {
-        success(res.message).then(() => (window.location.href = "/profile"));
-      })
-      .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    if (userService.isLoggedIn()) {
-      userService.getProfile().then((res) => {
-        console.log(res.user);
-        setId(res.user._id);
-        setName(res.user.name);
-        setEmail(res.user.email);
-        setBio(res.user.bio);
-        setPic(res.user.pic);
-        setBanner(res.user.banner);
-      });
-    }
-  }, []);
-
   return (
     <div className="row">
       <div className="col-12 mb-5">
         <div
-          onMouseEnter={() => setShowBannerEditButton(true)}
-          onMouseLeave={() => setShowBannerEditButton(false)}
           className="rounded-border img-fluid background-gray"
           style={{
             height: "250px",
             width: "100%",
-            backgroundImage: `url("${
-              bannerPreview
-                ? bannerPreview
-                : `${Base_URL}uploads/users/${banner}`
-            }")`,
+            backgroundImage: `url("${logo}")`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          {showBannerEditButton && (
-            <>
-              <input
-                type={"file"}
-                name="banner"
-                id="banner"
-                className="d-none"
-                accept=".png,.gif,.jpg,.jpeg"
-                max="100000000"
-                onChange={(e) => handleBannerChange(e)}
-              />
-              <label for="banner">
-                <Pencil
-                  color="white"
-                  className="pointer background-gray p-2"
-                  size={"50px"}
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    borderRadius: "10px",
-                  }}
-                />
-              </label>
-            </>
-          )}
         </div>
         <div
           onMouseEnter={() => setShowPicEditButton(true)}
@@ -133,11 +85,7 @@ function Form(props) {
           style={{
             height: "100px",
             width: "100px",
-            backgroundImage: `url("${
-              picPreview
-                ? picPreview
-                : `${Base_URL}uploads/users/${pic}`
-            }")`,
+            backgroundImage: `url("${picPreview ? picPreview : user}")`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             borderRadius: "50px",
@@ -218,10 +166,11 @@ function Form(props) {
             onChange={(e) => setBio(e.target.value)}
           />
         </div>
+
         <button
           type="submit"
-          className="btn btn-lg background-secondary rounded-pill px-5 py-2 text-white"
-          onClick={handleUpdate}
+          className="btn btn-lg background-secondary rounded-pill px-5 py-2 text-white mt-3"
+        // onClick={handleUpdate}
         >
           Save Changes
         </button>

@@ -71,7 +71,7 @@ const unblacklistUser = async ({ userId }) => {
   return axios.delete(`/users/blacklist/${userId}`).then((res) => res.data);
 };
 
-export default {
+export {
   getMe,
   updateMe,
   getFavorites,

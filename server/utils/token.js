@@ -6,7 +6,8 @@ const decodeToken = (token) => {
   }
 
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-  return decodedToken.payload;
+  console.log(decodedToken, '|||||||||||||||||||||||')
+  return decodedToken;
 };
 
 const generateToken = (payload) => {
