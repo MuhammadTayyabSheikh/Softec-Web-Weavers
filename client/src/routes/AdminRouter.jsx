@@ -17,7 +17,7 @@ const AdminRouter = () => {
         <div className='d-flex h-100' style={{ minHeight: '100vh' }}>
           <CustomSidebar />
           <Routes>
-            <Route path='' element={<WelcomePage />} />
+            <Route path='/' element={<WelcomePage />} />
             <Route path='/orders' element={<OrdersPage />} />
             <Route path='/customers' element={<CustomersPage />} />
             <Route path='/complaints' element={<ComplaintsPage />} />

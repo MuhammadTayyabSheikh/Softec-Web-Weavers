@@ -13,9 +13,16 @@ const register = async ({ name, email, password, dob, gender }) => {
       gender,
     })
     .then((res) => {
-      console.log(res.data);
       localStorage.setItem('token', res.data.token);
       window.location.href = '/';
+
+      socket = io(import.meta.env.VITE_SERVER_URL, {
+        query: {
+          token: res.data.token,
+        },
+      });
+
+      return res.data;
 
     });
 };

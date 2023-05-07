@@ -2,104 +2,103 @@ import React, { useEffect, useState } from 'react';
 import Table from '../../components/adminPanelComponents/Table';
 import TableDataImage from '../../components/adminPanelComponents/Table/TableDataImage';
 import { getGames } from '../../api/ItemsAPI';
-import { AiFillEdit } from 'react-icons/ai';
+import { AiFillEdit, AiOutlineLoading } from 'react-icons/ai';
 
 function VideoGamesInventory(props) {
+  const [previewUrl, setPreviewUrl] = useState(null);
 
-    const [previewUrl, setPreviewUrl] = useState(null);
-    const [image, setImage] = useState("");
+  const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [games, setGames] = useState([
-    {
-      id: 1,
-      title: 'The Legend of Zelda: Breath of the Wild',
-      description:
-        'Forget everything you know about The Legend of Zelda games. Step into a world of discovery, exploration, and adventure in The Legend of Zelda: Breath of the Wild, a boundary-breaking new game in the acclaimed series. Travel across vast fields, through forests, and to mountain peaks as you discover what has become of the kingdom of Hyrule in this stunning Open-Air Adventure. Now on Nintendo Switch, your journey is freer and more open than ever. Take your system anywhere, and adventure as Link any way you like.',
-      marketPrice: 59.99,
-      costPrice: 49.99,
-      type: 'VideoGame',
-      stock: 10,
-      minimumAge: 10,
-      image:
-        'https://cdn02.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_TheLegendofZeldaBreathoftheWild_image1600w.jpg',
-    },
-    {
-      id: 1,
-      title: 'The Legend of Zelda: Breath of the Wild',
-      description:
-        'Forget everything you know about The Legend of Zelda games. Step into a world of discovery, exploration, and adventure in The Legend of Zelda: Breath of the Wild, a boundary-breaking new game in the acclaimed series. Travel across vast fields, through forests, and to mountain peaks as you discover what has become of the kingdom of Hyrule in this stunning Open-Air Adventure. Now on Nintendo Switch, your journey is freer and more open than ever. Take your system anywhere, and adventure as Link any way you like.',
-      marketPrice: 59.99,
-      costPrice: 49.99,
-      type: 'VideoGame',
-      stock: 10,
-      minimumAge: 10,
-      image:
-        'https://cdn02.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_TheLegendofZeldaBreathoftheWild_image1600w.jpg',
-    },
-  ]);
+  const [modalData, setModalData] = useState({
+    title: '',
+    description: '',
+    marketPrice: '',
+    costPrice: '',
+    type: '',
+    stock: '',
+    minAge: '',
+    image: '',
+  });
 
   useEffect(() => {
-    getGames().then((res) => {
-      setGames(res.items);
-    });
+    setLoading(true);
+    getGames()
+      .then((res) => {
+        setGames(res.items);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <div className='d-flex flex-column w-100'>
       <div className='d-flex justify-content-between align-items-center m-3'>
         <h1 className='font-clash'>Video Games Inventory</h1>
-       
       </div>
-      <Table>
-        <thead>
-          <tr className=''>
-            <th scope='col'>Image</th>
-            <th scope='col'>Title</th>
-            <th scope='col'>Description</th>
-            <th scope='col'>Market Price</th>
-            <th scope='col'>Cost Price</th>
-            <th scope='col'>Type</th>
-            <th scope='col'>Stock</th>
-            <th scope='col'>Minimum Age</th>
-            <th scope='col'>Actions</th>
-          </tr>
-        </thead>
-        <tbody className=''>
-          {games.map((game, key) => (
-            <tr key={key}>
-              <TableDataImage />
-              <td>{game.title}</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td>@mdo</td>
-              <td>
-                <AiFillEdit
-                  type='button'
-                  data-toggle='modal'
-                  data-target='#exampleModal'
-                />
-              </td>
+      {loading ? (
+        <AiOutlineLoading />
+      ) : (
+        <Table>
+          <thead>
+            <tr className=''>
+              <th scope='col'>Image</th>
+              <th scope='col'>Title</th>
+              <th scope='col'>Market Price</th>
+              <th scope='col'>Cost Price</th>
+              <th scope='col'>Type</th>
+              <th scope='col'>Stock</th>
+              <th scope='col'>Minimum Age</th>
+              <th scope='col'>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody className=''>
+            {games.map((game, key) => (
+              <tr key={key}>
+                <TableDataImage src={game.image} />
+                <td>{game.title}</td>
+                <td>{game.marketPrice}</td>
+                <td>{game.costPrice}</td>
+                <td> {game.type}</td>
+                <td> {game.stock}</td>
+                <td> {game.minAge}</td>
+                <td>
+                  <AiFillEdit
+                    type='button'
+                    data-toggle='modal'
+                    data-target='#exampleModal1'
+                    onClick={() => {
+                      setModalData({
+                        title: game.title,
+                        description: game.description,
+                        marketPrice: game.marketPrice,
+                        costPrice: game.costPrice,
+                        type: game.type,
+                        stock: game.stock,
+                        minAge: game.minAge,
+                        image: game.image,
+                      });
+                    }}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
 
       {/* Modal */}
       <div
         className='modal fade'
-        id='exampleModal'
+        id='exampleModal1'
         tabIndex='-1'
         role='dialog'
-        aria-labelledby='exampleModalLabel'
+        aria-labelledby='exampleModal1Label'
         aria-hidden='true'
       >
         <div className='modal-dialog' role='document'>
           <div className='modal-content'>
             <div className='modal-header'>
-              <h5 className='modal-title' id='exampleModalLabel'>
+              <h5 className='modal-title' id='exampleModal1Label'>
                 Add Inventory
               </h5>
               <button
@@ -115,13 +114,11 @@ function VideoGamesInventory(props) {
               <form>
                 <div className='row'>
                   <div className='col-6'>
-                    {previewUrl && (
-                      <img
-                        src={previewUrl}
-                        alt='Preview'
-                        style={{ height: '150px', width: '150px' }}
-                      />
-                    )}
+                    <img
+                      src={previewUrl || modalData.image}
+                      alt='Preview'
+                      style={{ height: '150px', width: '150px' }}
+                    />
                   </div>
                   <div className='col-6'>
                     <div className='form-group'>
@@ -132,7 +129,10 @@ function VideoGamesInventory(props) {
                         id='image'
                         onChange={(event) => {
                           const file = event.target.files[0];
-                          setImage(file);
+                          setModalData({
+                            ...modalData,
+                            image: file,
+                          });
                           setPreviewUrl(URL.createObjectURL(file));
                         }}
                       />
@@ -141,7 +141,17 @@ function VideoGamesInventory(props) {
                 </div>
                 <div className='form-group'>
                   <label htmlFor='type'>Type</label>
-                  <select className='form-control' id='type'>
+                  <select
+                    className='form-control'
+                    id='type'
+                    onChange={(event) => {
+                      setModalData({
+                        ...modalData,
+                        type: event.target.value,
+                      });
+                    }}
+                    value={modalData.type}
+                  >
                     <option value={'VideoGame'}>Video Game</option>
                     <option value={'GamingGear'}>Gaming Gear</option>
                   </select>
@@ -156,6 +166,13 @@ function VideoGamesInventory(props) {
                     rows={'3'}
                     className='form-control'
                     id='description'
+                    value={modalData.description}
+                    onChange={(event) => {
+                      setModalData({
+                        ...modalData,
+                        description: event.target.value,
+                      });
+                    }}
                   />
                 </div>
                 <div className='row'>
@@ -166,6 +183,13 @@ function VideoGamesInventory(props) {
                         type='number'
                         className='form-control'
                         id='marketPrice'
+                        onChange={(event) => {
+                          setModalData({
+                            ...modalData,
+                            marketPrice: event.target.value,
+                          });
+                        }}
+                        value={modalData.marketPrice}
                       />
                     </div>
                   </div>
@@ -176,6 +200,13 @@ function VideoGamesInventory(props) {
                         type='number'
                         className='form-control'
                         id='costPrice'
+                        onChange={(event) => {
+                          setModalData({
+                            ...modalData,
+                            costPrice: event.target.value,
+                          });
+                        }}
+                        value={modalData.costPrice}
                       />
                     </div>
                   </div>
@@ -188,6 +219,13 @@ function VideoGamesInventory(props) {
                         type='number'
                         className='form-control'
                         id='stock'
+                        onChange={(event) => {
+                          setModalData({
+                            ...modalData,
+                            stock: event.target.value,
+                          });
+                        }}
+                        value={modalData.stock}
                       />
                     </div>
                   </div>
@@ -198,6 +236,13 @@ function VideoGamesInventory(props) {
                         type='number'
                         className='form-control'
                         id='minAge'
+                        onChange={(event) => {
+                          setModalData({
+                            ...modalData,
+                            minAge: event.target.value,
+                          });
+                        }}
+                        value={modalData.minAge}
                       />
                     </div>
                   </div>

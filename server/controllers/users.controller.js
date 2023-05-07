@@ -200,7 +200,7 @@ const checkout = async (req, res) => {
     }
 
     const ammount = user.cart.reduce((acc, item) => {
-      return acc + item.item.price * item.quantity;
+      return acc + item.item.marketPrice * item.quantity;
     }, 0);
 
     const charge = await stripe.charges.create({
