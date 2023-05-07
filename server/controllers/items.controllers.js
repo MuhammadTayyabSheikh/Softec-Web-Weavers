@@ -26,12 +26,12 @@ const getItems = async (req, res) => {
       type,
       title: search ? { $regex: search, $options: 'i' } : { $exists: true },
       category: category || { $exists: true },
-      price: {
+      marketPrice: {
         $gte: minPrice || 0,
         $lte: maxPrice || 1000000,
       },
     })
-      .sort([sortBy || 'createdAt', sortDirection || 'asc'])
+      .sort([[sortBy || 'createdAt', sortDirection || 'asc']])
       .skip((parseInt(page) - 1) * parseInt(pageSize || 10))
       .limit(parseInt(pageSize) || 10);
 
