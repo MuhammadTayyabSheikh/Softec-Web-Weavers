@@ -13,11 +13,13 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(
+  cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
@@ -29,6 +31,8 @@ app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
 });
+
+app.use('/public', express.static('public'));
 
 app.use('/api', routes);
 
